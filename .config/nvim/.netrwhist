@@ -1,0 +1,6 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =4
+let g:netrw_dirhist_4='/home/shiva/.config/rofi'
+let g:netrw_dirhist_3='/home/shiva/.config'
+let g:netrw_dirhist_2='/home/shiva/.config/polybar'
+let g:netrw_dirhist_1='/home/shiva/.config/bspwm'

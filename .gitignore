@@ -1,0 +1,15 @@
+.cache
+.gnupg
+.local
+.mozilla
+.pki
+Desktop
+Documents
+Downloads
+.asoundrc
+.bash_history
+.bash_logout
+.bash_profile
+.lesshst
+.lyxauth
+

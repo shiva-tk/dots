@@ -1,0 +1,73 @@
+configuration {
+	modi:                "drun,windowcd,window";
+	width:               30;
+	lines:               5;
+	show-icons:          false;
+	terminal:            "urxvt";
+	disable-history:     true;
+	sidebar-mode:        false;
+	tokenize:            true;
+	m:                   "-5";
+	line-margin:         2;
+	line-padding:        1;
+	separator-style:     "none";
+	hide-scrollbar:      true;
+	window-format:       "{w} {c}";
+	/*fullscreen: true;*/
+	columns:             1;
+	display-drun:        "𝛌:";
+	display-windowcd:    "𝛅:";
+	display-window:      "γ:";
+
+	/* vim key bindings */
+	kb-row-up:           "Up,Control+k,Shift+Tab,Shift+ISO_Left_Tab";
+	kb-row-down:         "Down,Control+j";
+	kb-accept-entry:     "Control+m,Return,KP_Enter";
+	kb-remove-to-eol:    "Control+Shift+e";
+	kb-mode-next:        "Shift+Right,Control+Tab,Control+l";
+	kb-mode-previous:    "Shift+Left,Control+Shift+Tab,Control+h";
+	kb-remove-char-back: "BackSpace";
+}
+
+* {
+	bg: #1c1c1c;
+	fg: #b5b4c9;
+	accent: #fdfbee;
+
+	background-color: @bg;
+	text-color: @fg;
+}
+
+window {
+	/*padding: 100px 300px 100px 300px; // top, right, bottom, left*/
+	padding:50px;
+	border-radius: 20px;
+	border: 2;
+	border-color: @fg;
+}
+
+prompt, entry {
+	text-color: @fg;
+	padding: 3px;
+}
+
+element {
+	border-radius: 0px;
+	padding: 3px;
+}
+
+element selected {
+	background-color: @fg;
+	text-color: @bg;
+}
+
+button selected {
+	background-color: @fg;
+	text-color: @bg;
+	border-radius: 0px;
+	padding: 0px;
+}
+
+element-icon { size: 2.3ch ; }
+
+// vim: set ft=css :
