@@ -21,3 +21,22 @@ yellow = "0xaf865a"
 [colors.primary]
 background = "0x090909"
 foreground = "0xc0a48b"
+
+[font]
+size = 12.0
+
+[font.bold]
+family = "Source Code Pro"
+style = "Bold"
+
+[font.bold_italic]
+family = "Source Code Pro"
+style = "Bold Italic"
+
+[font.italic]
+family = "Source Code Pro"
+style = "Italic"
+
+[font.normal]
+family = "Source Code Pro"
+style = "Regular"
