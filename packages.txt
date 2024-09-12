@@ -19,6 +19,7 @@ cantarell-fonts
 cryptsetup
 device-mapper
 diffutils
+dmenu
 dmidecode
 dmraid
 dnsmasq
@@ -132,6 +133,7 @@ os-prober
 pacman-contrib
 pavucontrol
 perl
+pfetch
 pipewire-alsa
 pipewire-jack
 pipewire-pulse
