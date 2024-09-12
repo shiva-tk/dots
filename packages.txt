@@ -1,5 +1,6 @@
 accountsservice
 adwaita-icon-theme
+alacritty
 alsa-firmware
 alsa-plugins
 alsa-utils

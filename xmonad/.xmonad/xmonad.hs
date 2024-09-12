@@ -3,11 +3,19 @@ import XMonad.Config.Desktop
 import XMonad.Layout.Spacing
 
 main = xmonad desktopConfig
-    { terminal    = "kgx"
+    { terminal    = "alacritty"
     , modMask     = mod4Mask
     , borderWidth = 3
     , layoutHook  = myLayoutWithSpacing
+    , normalBorderColor = myNormalBorderColor
+    , focusedBorderColor = myFocusedBorderColor
     }
+
+------------------------------------------------------------------------
+-- Colours
+
+myNormalBorderColor  = "#090909"
+myFocusedBorderColor = "#c0a48b"
 
 ------------------------------------------------------------------------
 -- Layouts
