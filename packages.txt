@@ -16,6 +16,7 @@ bluez
 bluez-utils
 btrfs-progs
 cantarell-fonts
+cmatrix
 cryptsetup
 device-mapper
 diffutils
@@ -189,6 +190,7 @@ xf86-input-libinput
 xf86-video-vmware
 xfsprogs
 xl2tpd
+xmobar
 xmonad
 xmonad-contrib
 xorg-server

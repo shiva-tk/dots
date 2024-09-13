@@ -1,12 +1,17 @@
 import XMonad
 import XMonad.Config.Desktop
+import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.DynamicLog
 import XMonad.Layout.Spacing
+import XMonad.Util.Run
 import System.Exit
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map as M
 
-main = xmonad desktopConfig
+main = do
+  xmproc <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobar.config"
+  xmonad $ docks $ desktopConfig
     { terminal    = "alacritty"
     , modMask     = mod4Mask
     , borderWidth = 3
@@ -14,14 +19,35 @@ main = xmonad desktopConfig
     , normalBorderColor = myNormalBorderColor
     , focusedBorderColor = myFocusedBorderColor
     , keys = myKeys
+    , logHook = myLogHook xmproc
     }
 
 
 ------------------------------------------------------------------------
 -- Colours
 
-myNormalBorderColor  = "#090909"
-myFocusedBorderColor = "#c0a48b"
+myNormalBorderColor  = colorBack
+myFocusedBorderColor = colorFore
+
+colorBack = "#090909"
+colorFore = color7
+
+color0 = "#4a3637"
+color1 = "#d17b49"
+color2 = "#7b8748"
+color3 = "#af865a"
+color4 = "#535c5c"
+color5 = "#775759"
+color6 = "#6d715e"
+color7 = "#c0a48b"
+color8 = "#4a3637"
+color9 = "#d17b49"
+color10 = "#7b8748"
+color11 = "#af865a"
+color12 = "#535c5c"
+color13 = "#775759"
+color14 = "#6d715e"
+color15 = "#c0a48b"
 
 
 ------------------------------------------------------------------------
@@ -29,7 +55,7 @@ myFocusedBorderColor = "#c0a48b"
 
 myLayoutWithSpacing = smartSpacing 10 myLayout
 
-myLayout = tiled ||| Mirror tiled ||| Full
+myLayout = avoidStruts $ tiled ||| Mirror tiled ||| Full
   where
     -- default tiling algorithm partitions the screen into two panes
     tiled   = Tall nmaster delta ratio
@@ -53,7 +79,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
 
     -- launch dmenu
-    , ((modm,               xK_p     ), spawn "exe=`dmenu_path | dmenu -nb '#090909' -nf '#c0a48b' -sb '#775759' -sf  '#fffff4' -fn 'Source Code Pro:pixelsize=25' -p 'run: '` && eval \"exec $exe\"")
+    , ((modm,               xK_p     ), spawn $ "exe=`dmenu_path | dmenu -nb '" ++ colorBack ++ "' -nf '" ++ colorFore ++ "' -sb '" ++ colorBack ++ "' -sf  '" ++ color1 ++ "' -fn 'Source Code Pro:pixelsize=25' -p 'run: '` && eval \"exec $exe\"")
 
     -- launch gmrun
     , ((modm .|. shiftMask, xK_p     ), spawn "gmrun")
@@ -138,3 +164,17 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
         | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
+
+
+------------------------------------------------------------------------
+-- XMobar Loghook
+
+myLogHook xmproc    = dynamicLogWithPP xmobarPP 
+  { ppOutput        = hPutStrLn xmproc 
+  , ppCurrent       = xmobarColor color1 colorBack . wrap "[" "]" 
+  , ppSep           = pad "|"
+  , ppTitle         = xmobarColor color5 colorBack
+  , ppTitleSanitize = shorten 20
+  , ppOrder         = \(ws : _ : t : _) -> [ws, t]
+  }
+
