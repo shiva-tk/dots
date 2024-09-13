@@ -2,7 +2,6 @@ import XMonad
 import XMonad.Config.Desktop
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
-import XMonad.Layout.Spacing
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Run
 import System.Exit
@@ -16,7 +15,7 @@ main = do
     { terminal    = "alacritty"
     , modMask     = mod4Mask
     , borderWidth = 3
-    , layoutHook  = myLayoutWithSpacing
+    , layoutHook  = myLayout
     , normalBorderColor = myNormalBorderColor
     , focusedBorderColor = myFocusedBorderColor
     , keys = myKeys
@@ -28,9 +27,9 @@ main = do
 ------------------------------------------------------------------------
 -- Colours
 
-myNormalBorderColor  = colorBack
+myNormalBorderColor  = "#151515"
 myFocusedBorderColor = colorFore
-myWallpaperColor = "#5e5044"
+myWallpaperColor = colorBack
 
 colorBack = "#090909"
 colorFore = color7
@@ -55,8 +54,6 @@ color15 = "#c0a48b"
 
 ------------------------------------------------------------------------
 -- Layouts
-
-myLayoutWithSpacing = smartSpacing 10 myLayout
 
 myLayout = avoidStruts $ tiled ||| Mirror tiled ||| Full
   where
