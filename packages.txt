@@ -85,6 +85,7 @@ gvfs-nfs
 gvfs-smb
 haveged
 hdparm
+hsetroot
 hwdetect
 hwinfo
 inetutils

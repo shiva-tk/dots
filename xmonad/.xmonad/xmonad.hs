@@ -3,6 +3,7 @@ import XMonad.Config.Desktop
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
 import XMonad.Layout.Spacing
+import XMonad.Util.SpawnOnce
 import XMonad.Util.Run
 import System.Exit
 
@@ -20,6 +21,7 @@ main = do
     , focusedBorderColor = myFocusedBorderColor
     , keys = myKeys
     , logHook = myLogHook xmproc
+    , startupHook = myStartupHook
     }
 
 
@@ -28,6 +30,7 @@ main = do
 
 myNormalBorderColor  = colorBack
 myFocusedBorderColor = colorFore
+myWallpaperColor = "#211819"
 
 colorBack = "#090909"
 colorFore = color7
@@ -178,3 +181,9 @@ myLogHook xmproc    = dynamicLogWithPP xmobarPP
   , ppOrder         = \(ws : _ : t : _) -> [ws, t]
   }
 
+
+------------------------------------------------------------------------
+-- Startup
+
+myStartupHook = do
+  spawnOnce $ "hsetroot -solid \"" ++ myWallpaperColor ++ "\""
