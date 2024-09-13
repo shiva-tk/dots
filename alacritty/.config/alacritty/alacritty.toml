@@ -26,17 +26,17 @@ foreground = "0xc0a48b"
 size = 12.0
 
 [font.bold]
-family = "Source Code Pro"
+family = "Iosevka"
 style = "Bold"
 
 [font.bold_italic]
-family = "Source Code Pro"
+family = "Iosevka"
 style = "Bold Italic"
 
 [font.italic]
-family = "Source Code Pro"
+family = "Iosevka"
 style = "Italic"
 
 [font.normal]
-family = "Source Code Pro"
+family = "Iosevka"
 style = "Regular"

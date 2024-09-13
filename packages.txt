@@ -16,6 +16,7 @@ bluez
 bluez-utils
 btrfs-progs
 cantarell-fonts
+cbonsai
 cmatrix
 cryptsetup
 device-mapper
@@ -168,6 +169,7 @@ tldr
 totem
 ttf-bitstream-vera
 ttf-dejavu
+ttf-iosevka
 ttf-liberation
 ttf-opensans
 unrar
