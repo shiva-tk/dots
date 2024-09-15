@@ -9,7 +9,7 @@ echo "======================="
 echo "   Installing Picom    "
 echo "======================="
 yay -S ninja meson
-git clone https://github.com/jonaburg/picom tmp
+git clone https://github.com/pijulius/picom.git tmp
 cd tmp
 meson --buildtype=release . build
 ninja -C build
