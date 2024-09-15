@@ -49,6 +49,7 @@ ethtool
 evince
 exfatprogs
 f2fs-tools
+feh
 ffmpegthumbnailer
 file-roller
 firefox
