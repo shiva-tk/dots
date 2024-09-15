@@ -2,6 +2,7 @@ import XMonad
 import XMonad.Config.Desktop
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
+import XMonad.Layout.Spacing
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Run
 import System.Exit
@@ -15,7 +16,7 @@ main = do
     { terminal    = "alacritty"
     , modMask     = mod4Mask
     , borderWidth = 3
-    , layoutHook  = myLayout
+    , layoutHook  = spacing 10 myLayout
     , normalBorderColor = myNormalBorderColor
     , focusedBorderColor = myFocusedBorderColor
     , keys = myKeys
@@ -184,4 +185,5 @@ myLogHook xmproc    = dynamicLogWithPP xmobarPP
 -- Startup
 
 myStartupHook = do
-  spawnOnce $ "hsetroot -solid \"" ++ myWallpaperColor ++ "\""
+  -- spawnOnce $ "hsetroot -solid \"" ++ myWallpaperColor ++ "\""
+  spawnOnce "feh --bg-fill ~/Downloads/thumb-1920-217475.jpg"
