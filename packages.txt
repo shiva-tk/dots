@@ -17,6 +17,7 @@ bluez-utils
 btrfs-progs
 cantarell-fonts
 cbonsai
+cmake
 cmatrix
 cryptsetup
 device-mapper
@@ -96,6 +97,7 @@ iwd
 jfsutils
 less
 libdvdcss
+libev
 libgsf
 libopenraw
 libwnck3
@@ -131,6 +133,9 @@ noto-fonts-extra
 nss-mdns
 ntfs-3g
 ntp
+nvidia
+nvidia-hook
+nvidia-inst
 openssh
 os-prober
 pacman-contrib
@@ -143,6 +148,7 @@ pipewire-pulse
 pkgfile
 plocate
 poppler-glib
+power-profiles-daemon
 pv
 python
 python-capng
