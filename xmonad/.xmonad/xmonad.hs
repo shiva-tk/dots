@@ -27,7 +27,7 @@ main = do
 ------------------------------------------------------------------------
 -- Colours
 
-myNormalBorderColor  = "#151515"
+myNormalBorderColor  = "#1f1f1f"
 myFocusedBorderColor = colorFore
 myWallpaperColor = colorBack
 
@@ -171,12 +171,13 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
 myLogHook xmproc    = dynamicLogWithPP xmobarPP 
   { ppOutput        = hPutStrLn xmproc 
-  , ppCurrent       = xmobarColor color1 colorBack . wrap "[" "]" 
-  , ppSep           = pad "|"
+  , ppCurrent       = bold . xmobarColor color1 colorBack . xmobarBorder "Bottom" color1 3
+  , ppSep           = xmobarColor myNormalBorderColor colorBack $ pad "|"
   , ppTitle         = xmobarColor color5 colorBack
   , ppTitleSanitize = shorten 20
   , ppOrder         = \(ws : _ : t : _) -> [ws, t]
   }
+  where bold = wrap "<fn=1>" "</fn>"
 
 
 ------------------------------------------------------------------------

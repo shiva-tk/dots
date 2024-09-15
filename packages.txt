@@ -177,6 +177,7 @@ unzip
 upower
 usb_modeswitch
 usbutils
+uthash
 vi
 virtualbox-guest-utils
 welcome
