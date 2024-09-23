@@ -1,0 +1,8 @@
+#!/bin/sh
+    
+case "$(echo -e "Shutdown\nRestart\nLogout\nSuspend" | dmenu -p "Power" -nb "#090909" -nf "#c0a48b" -sb "#090909" -sf "#d17b49" -fn "Iosevka:pixelsize=24")" in
+        Shutdown) exec systemctl poweroff;;
+        Restart) exec systemctl reboot;;
+        Logout) pkill xmonad;;
+        Suspend) exec systemctl suspend;;
+esac

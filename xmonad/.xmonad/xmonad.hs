@@ -89,7 +89,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_s     ), spawn "~/bin/select-sink")
 
     -- launch gmrun
-    , ((modm .|. shiftMask, xK_p     ), spawn "gmrun")
+    , ((modm .|. shiftMask, xK_p     ), spawn "~/bin/power-menu")
 
     -- close focused window
     , ((modm .|. shiftMask, xK_c     ), kill)

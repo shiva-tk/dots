@@ -16,6 +16,7 @@ bluez
 bluez-utils
 btrfs-progs
 cantarell-fonts
+cava
 cbonsai
 cmake
 cmatrix
