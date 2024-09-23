@@ -85,6 +85,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- launch networkmanager-dmenu
     , ((modm,               xK_n     ), spawn $ "networkmanager_dmenu -nb '" ++ colorBack ++ "' -nf '" ++ colorFore ++ "' -sb '" ++ colorBack ++ "' -sf  '" ++ color1 ++ "' -fn 'Iosevka:pixelsize=24' -p 'run: '")
 
+    -- launch networkmanager-dmenu
+    , ((modm,               xK_s     ), spawn "~/bin/select-sink")
+
     -- launch gmrun
     , ((modm .|. shiftMask, xK_p     ), spawn "gmrun")
 
