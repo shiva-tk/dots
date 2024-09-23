@@ -5,6 +5,7 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Layout.Spacing
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Run
+import Graphics.X11.ExtraTypes.XF86
 import System.Exit
 
 import qualified XMonad.StackSet as W
@@ -75,7 +76,6 @@ myLayout = avoidStruts $ tiled ||| Mirror tiled ||| Full
 -- Keybindings
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
-
     -- launch a terminal
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
 
@@ -147,6 +147,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- Restart xmonad
     , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
+
+    -- Volume control
+    , ((0                 , xF86XK_AudioLowerVolume), spawn "amixer set Master 5%- unmute")
+    , ((0                 , xF86XK_AudioRaiseVolume), spawn "amixer set Master 5%+ unmute")
+    , ((0                 , xF86XK_AudioMute), spawn "amixer set Master toggle")
     ]
     ++
 
