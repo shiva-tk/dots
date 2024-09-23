@@ -123,6 +123,7 @@ nautilus
 neovim
 netctl
 networkmanager
+networkmanager-dmenu-git
 networkmanager-openconnect
 networkmanager-openvpn
 nfs-utils
