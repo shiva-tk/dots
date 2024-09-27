@@ -3,6 +3,7 @@ import XMonad.Config.Desktop
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
 import XMonad.Layout.Spacing
+import XMonad.Layout.CenterMainFluid
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Run
 import Graphics.X11.ExtraTypes.XF86
@@ -57,10 +58,14 @@ color15 = "#c0a48b"
 ------------------------------------------------------------------------
 -- Layouts
 
-myLayout = avoidStruts $ tiled ||| Mirror tiled ||| Full
+myLayout = avoidStruts $ tiled ||| Mirror tiled ||| Full ||| centered
   where
-    -- default tiling algorithm partitions the screen into two panes
+    -- Default tiling algorithm partitions the screen into two panes
     tiled   = Tall nmaster delta ratio
+
+    -- Three columns, centered main window. Main window always occupies the center part of the screen,
+    -- even if it is the only window open. Good for ultrawide monitors.
+    centered = CenterMainFluid nmaster delta ratio
 
     -- The default number of windows in the master pane
     nmaster = 1
