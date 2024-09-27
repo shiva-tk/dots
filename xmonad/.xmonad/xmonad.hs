@@ -80,7 +80,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
 
     -- launch dmenu
-    , ((modm,               xK_p     ), spawn $ "exe=`dmenu_path | dmenu -nb '" ++ colorBack ++ "' -nf '" ++ colorFore ++ "' -sb '" ++ colorBack ++ "' -sf  '" ++ color1 ++ "' -fn 'Iosevka:pixelsize=24' -p 'run: '` && eval \"exec $exe\"")
+    , ((modm,               xK_p     ), spawn $ "exe=`dmenu_path | dmenu -nb '" ++ colorBack ++ "' -nf '" ++ colorFore ++ "' -sb '" ++ colorBack ++ "' -sf  '" ++ color1 ++ "' -fn 'Iosevka:pixelsize=24' -p 'Run'` && eval \"exec $exe\"")
 
     -- launch networkmanager-dmenu
     , ((modm,               xK_n     ), spawn $ "networkmanager_dmenu -nb '" ++ colorBack ++ "' -nf '" ++ colorFore ++ "' -sb '" ++ colorBack ++ "' -sf  '" ++ color1 ++ "' -fn 'Iosevka:pixelsize=24' -p 'run: '")
@@ -197,5 +197,5 @@ myLogHook xmproc    = dynamicLogWithPP xmobarPP
 
 myStartupHook = do
   -- spawnOnce $ "hsetroot -solid \"" ++ myWallpaperColor ++ "\""
-  spawnOnce "feh --bg-fill ~/.wallpapers/mars.jpg"
-  spawnOnce "picom -b"
+  spawnOnce "feh --bg-fill ~/.wallpapers/dune1.jpg"
+  -- spawnOnce "picom -b"
