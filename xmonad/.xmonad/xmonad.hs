@@ -91,7 +91,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_n     ), spawn $ "networkmanager_dmenu -nb '" ++ colorBack ++ "' -nf '" ++ colorFore ++ "' -sb '" ++ colorBack ++ "' -sf  '" ++ color1 ++ "' -fn 'Iosevka:pixelsize=24' -p 'run: '")
 
     -- launch networkmanager-dmenu
-    , ((modm,               xK_s     ), spawn "~/bin/select-sink")
+    , ((modm .|. shiftMask, xK_s     ), spawn "~/bin/select-sink")
 
     -- launch gmrun
     , ((modm .|. shiftMask, xK_p     ), spawn "~/bin/power-menu")
@@ -160,6 +160,12 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((0                 , xF86XK_AudioLowerVolume), spawn "amixer set Master 5%- unmute")
     , ((0                 , xF86XK_AudioRaiseVolume), spawn "amixer set Master 5%+ unmute")
     , ((0                 , xF86XK_AudioMute), spawn "amixer set Master toggle")
+
+    -- Apps
+    , ((modm              , xK_w     ), spawn "firefox")
+    , ((modm              , xK_f     ), spawn "nautilus")
+    , ((modm              , xK_s     ), spawn "spotify")
+    , ((modm              , xK_e     ), spawn "emacs")
     ]
     ++
 
@@ -172,15 +178,15 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [((m .|. modm, k), windows $ f i)
         | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
-    ++
+    -- ++
 
     --
     -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
     -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
     --
-    [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
-        | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
-        , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
+    -- [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
+    --     | (key, sc) <- zip [kK_w, xK_e, xK_r] [0..]
+    --     , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 
 ------------------------------------------------------------------------
