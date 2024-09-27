@@ -1,3 +1,5 @@
+shell = "/bin/zsh"
+
 [colors.bright]
 black = "0x4a3637"
 blue = "0x535c5c"
@@ -26,17 +28,17 @@ foreground = "0xc0a48b"
 size = 14.0
 
 [font.bold]
-family = "Iosevka"
+family = "Iosevka Nerd Font"
 style = "Bold"
 
 [font.bold_italic]
-family = "Iosevka"
+family = "Iosevka Nerd Font"
 style = "Bold Italic"
 
 [font.italic]
-family = "Iosevka"
+family = "Iosevka Nerd Font"
 style = "Italic"
 
 [font.normal]
-family = "Iosevka"
+family = "Iosevka Nerd Font "
 style = "Regular"

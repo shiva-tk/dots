@@ -25,3 +25,6 @@ echo "======================="
 for dir in */; do
   [ -d "$dir" ] && stow "$dir"
 done
+
+# Change to zsh
+whoami | chsh -s "/bin/zsh"

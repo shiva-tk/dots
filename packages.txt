@@ -168,6 +168,7 @@ s-nail
 sg3_utils
 smartmontools
 sof-firmware
+spotify
 stow
 sudo
 sushi
@@ -176,9 +177,11 @@ systemd-sysvcompat
 texinfo
 tldr
 totem
+tt
 ttf-bitstream-vera
 ttf-dejavu
 ttf-iosevka
+ttf-iosevka-nerd
 ttf-liberation
 ttf-opensans
 unrar
@@ -214,3 +217,4 @@ xorg-xkill
 xorg-xrandr
 xterm
 yay
+zsh
