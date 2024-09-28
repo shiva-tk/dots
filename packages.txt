@@ -169,7 +169,6 @@ s-nail
 sg3_utils
 smartmontools
 sof-firmware
-spotify
 stow
 sudo
 sushi
