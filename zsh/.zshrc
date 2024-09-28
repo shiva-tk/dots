@@ -54,4 +54,4 @@ alias ls='ls --color'
 eval "$(fzf --zsh)"
 
 # Path
-export PATH=$PATH:~/bin
+export PATH=$PATH:~/bin:~/.config/emacs/bin

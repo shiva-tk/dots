@@ -27,4 +27,15 @@ for dir in */; do
 done
 
 # Change to zsh
-whoami | chsh -s "/bin/zsh"
+echo "======================="
+echo " Changing Shell to zsh "
+echo "======================="
+chsh -s "/bin/zsh" $USER
+
+# Install doom emacs
+echo "======================="
+echo " Installing Doom Emacs "
+echo "======================="
+git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
+~/.config/emacs/bin/doom install
+systemctl enable --user emacs

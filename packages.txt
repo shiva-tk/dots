@@ -34,6 +34,7 @@ duf
 e2fsprogs
 efibootmgr
 efitools
+emacs
 endeavouros-keyring
 endeavouros-mirrorlist
 endeavouros-theming
