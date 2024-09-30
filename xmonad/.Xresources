@@ -1,8 +1,6 @@
 ! Cursor
 Xcursor.size: 40
 
-! 4k Monitor DPI
-Xft.dpi: 120
 Xft.autohint: 0
 Xft.lcdfilter:  lcddefault
 Xft.hintstyle:  hintfull

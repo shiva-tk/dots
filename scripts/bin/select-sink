@@ -18,7 +18,7 @@ for ((i = 0; i < ${#descriptions_arr[@]}; i++)); do
     sinks["${descriptions_arr[$i]}"]="${names_arr[$i]}"
 done
 
-description=$(echo "$descriptions" | dmenu -p "Audio" -nb "#090909" -nf "#c0a48b" -sb "#090909" -sf "#d17b49" -fn "Iosevka:pixelsize=24")
+description=$(echo "$descriptions" | dmenu -p "Audio" -nb "#090909" -nf "#c0a48b" -sb "#090909" -sf "#d17b49" -fn "Iosevka:pixelsize=18")
 
 if [ -n "${description}" ]; then
     pactl set-default-sink "${sinks[${description}]}" &&
