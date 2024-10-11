@@ -208,5 +208,5 @@ myLogHook xmproc    = dynamicLogWithPP xmobarPP
 
 myStartupHook = do
   -- spawnOnce $ "hsetroot -solid \"" ++ myWallpaperColor ++ "\""
-  spawnOnce "feh --bg-fill ~/.wallpapers/tokyo.jpg"
+  spawnOnce "feh --bg-fill ~/.wallpapers/sand-dune.jpg"
   spawnOnce "picom -b"

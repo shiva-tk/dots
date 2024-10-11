@@ -112,6 +112,7 @@ loupe
 lsb-release
 lsscsi
 lvm2
+lxappearance
 man-db
 man-pages
 mdadm
@@ -172,6 +173,7 @@ sof-firmware
 stow
 sudo
 sushi
+synology-drive
 sysfsutils
 systemd-sysvcompat
 texinfo
@@ -203,6 +205,8 @@ xdg-user-dirs
 xdg-user-dirs-gtk
 xdg-utils
 xf86-input-libinput
+xf86-video-amdgpu
+xf86-video-ati
 xf86-video-vmware
 xfsprogs
 xl2tpd
@@ -217,4 +221,6 @@ xorg-xkill
 xorg-xrandr
 xterm
 yay
+zathura
+zathura-pdf-mupdf
 zsh
