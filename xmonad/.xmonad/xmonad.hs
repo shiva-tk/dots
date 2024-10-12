@@ -17,7 +17,7 @@ main = do
   xmonad $ docks $ desktopConfig
     { terminal    = "alacritty"
     , modMask     = mod4Mask
-    , borderWidth = 3
+    , borderWidth = 2
     , layoutHook  = spacing 10 myLayout
     , normalBorderColor = myNormalBorderColor
     , focusedBorderColor = myFocusedBorderColor
@@ -32,7 +32,7 @@ main = do
 
 myNormalBorderColor  = "#1f1f1f"
 myFocusedBorderColor = colorFore
-myWallpaperColor = colorBack
+myWallpaperColor = "#101010"
 
 colorBack = "#090909"
 colorFore = color7
@@ -207,6 +207,6 @@ myLogHook xmproc    = dynamicLogWithPP xmobarPP
 -- Startup
 
 myStartupHook = do
-  -- spawnOnce $ "hsetroot -solid \"" ++ myWallpaperColor ++ "\""
-  spawnOnce "feh --bg-fill ~/.wallpapers/sand-dune.jpg"
+  spawnOnce $ "hsetroot -solid \"" ++ myWallpaperColor ++ "\""
+  -- spawnOnce "feh --bg-fill ~/.wallpapers/sand-dune.jpg"
   spawnOnce "picom -b"
