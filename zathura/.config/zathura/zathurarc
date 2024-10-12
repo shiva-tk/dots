@@ -1,5 +1,57 @@
-set recolor-darkcolor #090909
-set recolor-lightcolor #c0a48b
+set selection-clipboard clipboard
+set window-title-home-tilde true
+set statusbar-home-tilde true
+set adjust-open "best-fit"
+
+set font "Iosevka 9"
+# Light/Default mode settings:
+#
+#
+set notification-error-bg       "#d17b49" # Red
+set notification-error-fg       "#c0a48b" # Foreground
+set notification-warning-bg     "#af865a" # Orange
+set notification-warning-fg     "#191919" # Selection
+set notification-bg             "#090909" # Background
+set notification-fg             "#c0a48b" # Foreground
+
+set completion-bg               "#090909" # Background
+set completion-fg               "#4c4c4c" # Comment
+set completion-group-bg         "#090909" # Background
+set completion-group-fg         "#4c4c4c" # Comment
+set completion-highlight-bg     "#191919" # Selection
+set completion-highlight-fg     "#c0a48b" # Foreground
+
+set index-bg                    "#090909" # Background
+set index-fg                    "#c0a48b" # Foreground
+set index-active-bg             "#191919" # Current Line
+set index-active-fg             "#c0a48b" # Foreground
+
+set inputbar-bg                 "#090909" # Background
+set inputbar-fg                 "#c0a48b" # Foreground
+set statusbar-bg                "#090909" # Background
+set statusbar-fg                "#c0a48b" # Foreground
+
+set highlight-color             "#af865a" # Orange
+set highlight-active-color      "#775759" # Pink
+
+set default-bg                  "#090909" # Background
+set default-fg                  "#c0a48b" # Foreground
+
+set render-loading              true
+set render-loading-fg           "#090909" # Background
+set render-loading-bg           "#c0a48b" # Foreground
+
+# Recolor mode settings
+#
+#
+set recolor-lightcolor          "#090909" # Background
+set recolor-darkcolor           "#c0a48b" # Foreground
+
+# Startup options
+#
+#
+set adjust-open width
 set recolor true
-set recolor-keephue false
-set selection-clipboard "clipboard"
+map <C-Tab> toggle_statusbar
+map <C-r> recolor
+set guioptions ""
