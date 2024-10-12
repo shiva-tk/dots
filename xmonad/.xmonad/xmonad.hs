@@ -162,7 +162,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((0                 , xF86XK_AudioMute), spawn "amixer set Master toggle")
 
     -- Apps
-    , ((modm              , xK_w     ), spawn "firefox")
+    , ((modm              , xK_w     ), spawn "brave")
     , ((modm              , xK_f     ), spawn "nautilus")
     , ((modm              , xK_s     ), spawn "spotify")
     , ((modm              , xK_e     ), spawn "emacs")
