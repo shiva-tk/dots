@@ -4,6 +4,35 @@ echo "Installing Dependencies"
 echo "======================="
 yay -S --needed - < packages.txt
 
+# Stow configs
+echo "======================="
+echo "    Stowing Configs    "
+echo "======================="
+for dir in */; do
+  [ -d "$dir" ] && stow "$dir"
+done
+
+# Install haskell and xmonad through ghcup - ghcup preferred to pacman to manage haskell
+echo "======================="
+echo "   Installing XMonad   "
+echo "======================="
+curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
+sudo pacman -S git xorg-server xorg-apps xorg-xinit xorg-xmessage libx11 libxft libxinerama libxrandr libxss pkgconf
+cd ~/.xmonad
+git clone https://github.com/xmonad/xmonad
+git clone https://github.com/xmonad/xmonad-contrib
+stack init
+stack install
+
+cd ~/dots
+
+# Set ly as dm, and remove gnome dm
+echo "======================="
+echo "    Setting Up Ly DM   "
+echo "======================="
+sudo systemctl disable gdm.service
+sudo systemctl enable ly.service
+
 # Install jonaburg/picom
 echo "======================="
 echo "   Installing Picom    "
@@ -17,14 +46,6 @@ sudo ninja -C build install
 cd ..
 rm -rf tmp
 sudo pacman -R ninja meson
-
-# Stow configs
-echo "======================="
-echo "    Stowing Configs    "
-echo "======================="
-for dir in */; do
-  [ -d "$dir" ] && stow "$dir"
-done
 
 # Change to zsh
 echo "======================="
