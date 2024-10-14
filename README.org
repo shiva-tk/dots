@@ -1,0 +1,32 @@
+#+title: README
+
+* My Dotfiles
+A minimal set up, with a focus on functionality, aesthetics and ergonomics.
+
+** Installation
+These steps assume a fresh installation of EndeavourOS with Gnome installed.
+
+#+BEGIN_SRC
+# Clone the repo
+git clone https://github.com/shiva-tk/dots.git
+
+# Move into your home directory
+mv dots ~/
+cd ~/dots
+
+# Run install.sh
+./install.sh
+#+END_SRC
+
+This install script isn't particularly stable, and may require some tinkering.
+
+The script:
+1. Installs dependencies via AUR / pacman.
+2. Uses GNU stow to place all configuration files in the correct directories.
+3. Installs ghc / stack via ghcup, and then installs xmonad via stack.
+   For managing haskell libraries, ghcup is more dependable than pacman, so i prefer this method.
+4. Sets up ly as a desktop manager - this step assumes gdm is currently set as the desktop manager.
+5. Installs a picom fork from github, for animations / nice rounded borders.
+   This fork also supports blurring, if you like.
+6. Changes the shell to zsh.
+7. Installs doom emacs from github.
