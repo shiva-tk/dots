@@ -55,3 +55,5 @@ eval "$(fzf --zsh)"
 
 # Path
 export PATH=$PATH:~/bin:~/.config/emacs/bin:~/.ghcup/bin:~/.local/bin
+
+[ -f "/home/shiva/.ghcup/env" ] && . "/home/shiva/.ghcup/env" # ghcup-env

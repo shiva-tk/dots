@@ -3,6 +3,8 @@
 * My Dotfiles
 A minimal set up, with a focus on functionality, aesthetics and ergonomics.
 
+[[./busy.png]]
+
 ** Installation
 These steps assume a fresh installation of EndeavourOS with Gnome installed.
 
