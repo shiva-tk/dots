@@ -12,6 +12,7 @@ base
 base-devel
 bash-completion
 bind
+blueman
 bluez
 bluez-utils
 brave-bin
@@ -78,6 +79,7 @@ gnome-themes-extra
 gnome-tweaks
 gnome-usage
 gnome-weather
+graphviz
 grub
 gst-libav
 gst-plugin-pipewire
@@ -164,6 +166,7 @@ python-defusedxml
 python-packaging
 python-pyqt5
 rebuild-detector
+redshift
 reflector
 reflector-simple
 reiserfsprogs
@@ -173,6 +176,7 @@ s-nail
 sg3_utils
 smartmontools
 sof-firmware
+spotify
 stow
 sudo
 sushi
@@ -180,6 +184,10 @@ synology-drive
 sysfsutils
 systemd-sysvcompat
 texinfo
+texlab
+texlive-latexextra
+texlive-latexrecommended
+texlive-plaingeneric
 tldr
 totem
 tt
@@ -213,7 +221,6 @@ xf86-video-ati
 xf86-video-vmware
 xfsprogs
 xl2tpd
-xmobar
 xorg-bdftopcf
 xorg-iceauth
 xorg-mkfontscale
@@ -250,4 +257,5 @@ xterm
 yay
 zathura
 zathura-pdf-mupdf
+zotero-bin
 zsh

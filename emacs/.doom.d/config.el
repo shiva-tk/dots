@@ -73,3 +73,61 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+(setq
+ projectile-project-search-path '("~/Documents/dev/" "~/Documents/icl/" "~/Documents/org/")
+ vterm-shell "/sbin/zsh"
+ +latex-viewers '(zathura)
+ TeX-fold-unfold-around-mark 't
+ lsp-tex-server 'texlab
+ TeX-electric-sub-and-superscript 't
+ )
+
+(setq org-directory "~/Documents/org/")
+(setq org-roam-directory "~/Documents/org/roam")
+(after! oc (setq org-cite-global-bibliography '("~/Documents/org/refs/bibliography.bib")))
+
+(use-package! citar
+  :after oc
+  :custom
+  (org-cite-insert-processor 'citar)
+  (org-cite-follow-processor 'citar)
+  (org-cite-activate-processor 'citar)
+  (citar-org-roam-note-title-template "${author} - ${title}\npdf: ${file}")
+  (citar-bibliography '("~/Documents/org/refs/bibliography.bib")))
+
+(after! citar
+  (add-to-list 'citar-file-open-functions '("pdf" . citar-file-open-external)))
+
+(after! org
+  (map! :map org-mode-map
+        :n "M-j" #'org-metadown
+        :n "M-k" #'org-metaup
+   )
+  )
+
+;; Resize org mode headings
+(custom-set-faces
+  '(org-document-title ((t (:height 2.0 :weight bold))))
+  '(org-level-1 ((t (:inherit outline-1 :height 1.7))))
+  '(org-level-2 ((t (:inherit outline-2 :height 1.6))))
+  '(org-level-3 ((t (:inherit outline-3 :height 1.5))))
+  '(org-level-4 ((t (:inherit outline-4 :height 1.4))))
+  '(org-level-5 ((t (:inherit outline-5 :height 1.3))))
+  '(org-level-6 ((t (:inherit outline-5 :height 1.2))))
+  '(org-level-7 ((t (:inherit outline-5 :height 1.1)))))
+
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(setq org-bullets-bullet-list
+        '("" "" "" "" "" ""))
+(setq org-preview-latex-process-alist
+      '((dvipng :programs ("latex" "dvipng")
+                :description "dvi > png"
+                :message "You need to install the programs: latex and dvipng."
+                :use-xcolor t
+                :image-input-type "dvi"
+                :image-output-type "png"
+                :image-size-adjust (1.0 . 1.0)
+                :latex-compiler ("latex -interaction nonstopmode -output-directory %o %f")
+                :image-converter ("dvipng -D %D -T tight -o %O %f"))))
