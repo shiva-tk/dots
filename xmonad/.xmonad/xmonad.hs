@@ -13,7 +13,7 @@ import qualified XMonad.StackSet as W
 import qualified Data.Map as M
 
 main = do
-  xmproc <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobar.config"
+  xmproc <- spawnPipe "~/.cabal/bin/xmobar -x 0 ~/.config/xmobar/xmobar.config"
   xmonad $ docks $ desktopConfig
     { terminal    = "alacritty"
     , modMask     = mod4Mask

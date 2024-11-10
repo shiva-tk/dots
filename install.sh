@@ -26,6 +26,12 @@ stack install
 
 cd ~/dots
 
+# Install haskell and xmonad through ghcup - ghcup preferred to pacman to manage haskell
+echo "======================="
+echo "   Installing XMobar   "
+echo "======================="
+cabal install xmobar -fall_extensions
+
 # Set ly as dm, and remove gnome dm
 echo "======================="
 echo "    Setting Up Ly DM   "
