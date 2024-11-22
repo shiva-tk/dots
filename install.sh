@@ -31,6 +31,7 @@ echo "======================="
 echo "   Installing XMobar   "
 echo "======================="
 cabal install xmobar -fall_extensions
+cabal install --lib xmobar
 
 # Set ly as dm, and remove gnome dm
 echo "======================="

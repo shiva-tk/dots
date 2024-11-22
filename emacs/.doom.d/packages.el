@@ -48,3 +48,9 @@
 ;; (unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;; (unpin! t)
+
+;; Org
+(package! org-bullets)
+(package! citar)
+(unpin! org-roam)
+(package! org-roam-ui)

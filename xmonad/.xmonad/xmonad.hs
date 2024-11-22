@@ -2,6 +2,7 @@ import XMonad
 import XMonad.Config.Desktop
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.FadeInactive
 import XMonad.Layout.Spacing
 import XMonad.Layout.CenterMainFluid
 import XMonad.Util.SpawnOnce
@@ -12,12 +13,15 @@ import System.Exit
 import qualified XMonad.StackSet as W
 import qualified Data.Map as M
 
+-- Colourscheme
+import Colours.HomageWhite
+
 main = do
-  xmproc <- spawnPipe "~/.cabal/bin/xmobar -x 0 ~/.config/xmobar/xmobar.config"
+  xmproc <- spawnPipe "~/.cabal/bin/xmobar -x 0 ~/.config/xmobar/xmobar-homage-white.config"
   xmonad $ docks $ desktopConfig
     { terminal    = "alacritty"
     , modMask     = mod4Mask
-    , borderWidth = 2
+    , borderWidth = 0
     , layoutHook  = spacing 10 myLayout
     , normalBorderColor = myNormalBorderColor
     , focusedBorderColor = myFocusedBorderColor
@@ -25,34 +29,6 @@ main = do
     , logHook = myLogHook xmproc
     , startupHook = myStartupHook
     }
-
-
-------------------------------------------------------------------------
--- Colours
-
-myNormalBorderColor  = "#1f1f1f"
-myFocusedBorderColor = colorFore
-myWallpaperColor = "#101010"
-
-colorBack = "#090909"
-colorFore = color7
-
-color0 = "#4a3637"
-color1 = "#d17b49"
-color2 = "#7b8748"
-color3 = "#af865a"
-color4 = "#535c5c"
-color5 = "#775759"
-color6 = "#6d715e"
-color7 = "#c0a48b"
-color8 = "#4a3637"
-color9 = "#d17b49"
-color10 = "#7b8748"
-color11 = "#af865a"
-color12 = "#535c5c"
-color13 = "#775759"
-color14 = "#6d715e"
-color15 = "#c0a48b"
 
 
 ------------------------------------------------------------------------
@@ -195,12 +171,15 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 myLogHook xmproc    = dynamicLogWithPP xmobarPP 
   { ppOutput        = hPutStrLn xmproc 
   , ppCurrent       = bold . xmobarColor color1 colorBack . xmobarBorder "Bottom" color1 3
-  , ppSep           = xmobarColor myNormalBorderColor colorBack $ pad "|"
-  , ppTitle         = xmobarColor color5 colorBack
+  , ppSep           = xmobarColor color8 colorBack $ pad "|"
+  , ppTitle         = italic . xmobarColor colorFore colorBack
   , ppTitleSanitize = shorten 20
   , ppOrder         = \(ws : _ : t : _) -> [ws, t]
-  }
-  where bold = wrap "<fn=1>" "</fn>"
+  } <+> fadeInactiveLogHook fadeAmount
+  where
+    bold = wrap "<fn=1>" "</fn>"
+    italic = wrap "<fn=2>" "</fn>"
+    fadeAmount = 0.75
 
 
 ------------------------------------------------------------------------

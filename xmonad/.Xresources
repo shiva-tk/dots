@@ -8,33 +8,70 @@ Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
 
-! Colour Scheme
+! Dune Colour Scheme
 ! special
-*.foreground:   #c0a48b
-*.background:   #090909
-*.cursorColor:  #c0a48b
+!*.foreground:   #c0a48b
+!*.background:   #090909
+!*.cursorColor:  #c0a48b
 ! black
-*.color0:       #4a3637
-*.color8:       #4a3637
+!*.color0:       #4a3637
+!*.color8:       #4a3637
 ! red
-*.color1:       #d17b49
-*.color9:       #d17b49
+!*.color1:       #d17b49
+!*.color9:       #d17b49
 ! green
-*.color2:       #7b8748
-*.color10:      #7b8748
+!*.color2:       #7b8748
+!*.color10:      #7b8748
 ! yellow
-*.color3:       #af865a
-*.color11:      #af865a
+!*.color3:       #af865a
+!*.color11:      #af865a
 ! blue
-*.color4:       #535c5c
-*.color12:      #535c5c
+!*.color4:       #535c5c
+!*.color12:      #535c5c
 ! magenta
-*.color5:       #775759
-*.color13:      #775759
+!*.color5:       #775759
+!*.color13:      #775759
 ! cyan
-*.color6:       #6d715e
-*.color14:      #6d715e
+!*.color6:       #6d715e
+!*.color14:      #6d715e
 ! white
-*.color7:       #c0a48b
-*.color15:      #c0a48b
- 
+!*.color7:       #c0a48b
+!*.color15:      #c0a48b
+
+! Homage White Colour Scheme
+! special
+*.foreground:   #383a42
+*.background:   #fafafa
+*.cursorColor:  #383a42
+
+! black
+*.color0:       #f0f0f0
+*.color8:       #c6c7c7
+
+! red
+*.color1:       #e45649
+*.color9:       #8a3b3c
+
+! green
+*.color2:       #556b2f
+*.color10:      #4db5bd
+
+! yellow
+*.color3:       #986801
+*.color11:      #fafadd
+
+! blue
+*.color4:       #014980
+*.color12:      #030f64
+
+! magenta
+*.color5:       #030f64
+*.color13:      #b751b6
+
+! cyan
+*.color6:       #0184bc
+*.color14:      #005478
+
+! white
+*.color7:       #707880
+*.color15:      #c5c8c6

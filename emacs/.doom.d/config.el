@@ -31,7 +31,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-dune)
+(setq doom-theme 'doom-homage-white)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -73,3 +73,70 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+(setq
+ projectile-project-search-path '("~/Documents/dev/" "~/Documents/icl/" "~/Documents/org/")
+ vterm-shell "/sbin/zsh"
+ +latex-viewers '(zathura)
+ TeX-fold-unfold-around-mark 't
+ lsp-tex-server 'texlab
+ TeX-electric-sub-and-superscript 't
+ )
+
+(setq org-directory "~/Documents/org/")
+(setq org-roam-directory "~/Documents/org/roam")
+(setq org-agenda-files (directory-files-recursively "~/Documents/org/" "\\.org$"))
+(setq org-hide-emphasis-markers 't)
+(after! oc (setq org-cite-global-bibliography '("~/Documents/org/refs/bibliography.bib")))
+
+(use-package! citar
+  :after oc
+  :custom
+  (org-cite-insert-processor 'citar)
+  (org-cite-follow-processor 'citar)
+  (org-cite-activate-processor 'citar)
+  (citar-org-roam-note-title-template "${author} - ${title}\npdf: ${file}")
+  (citar-bibliography '("~/Documents/org/refs/bibliography.bib")))
+
+(after! citar
+  (add-to-list 'citar-file-open-functions '("pdf" . citar-file-open-external)))
+
+(after! org
+  (map! :map org-mode-map
+        :n "M-j" #'org-metadown
+        :n "M-k" #'org-metaup
+   )
+  )
+
+;; Resize org mode headings
+(custom-set-faces
+  '(org-document-title ((t (:height 2.0 :weight bold))))
+  '(org-level-1 ((t (:inherit outline-1 :height 1.7))))
+  '(org-level-2 ((t (:inherit outline-2 :height 1.6))))
+  '(org-level-3 ((t (:inherit outline-3 :height 1.5))))
+  '(org-level-4 ((t (:inherit outline-4 :height 1.4))))
+  '(org-level-5 ((t (:inherit outline-5 :height 1.3))))
+  '(org-level-6 ((t (:inherit outline-5 :height 1.2))))
+  '(org-level-7 ((t (:inherit outline-5 :height 1.1)))))
+
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(setq org-bullets-bullet-list
+        '("⁖"))
+(setq org-ellipsis " ▾ ")
+
+;; org-roam-ui
+(use-package! websocket
+    :after org-roam)
+
+(use-package! org-roam-ui
+    :after org-roam ;; or :after org
+;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
+;;         a hookable mode anymore, you're advised to pick something yourself
+;;         if you don't care about startup time, use
+;;  :hook (after-init . org-roam-ui-mode)
+    :config
+    (setq org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start t))

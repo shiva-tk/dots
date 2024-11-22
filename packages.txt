@@ -14,6 +14,7 @@ bash-completion
 bind
 bluez
 bluez-utils
+bottom
 brave-bin
 btrfs-progs
 cantarell-fonts
@@ -24,6 +25,7 @@ cmatrix
 cryptsetup
 device-mapper
 diffutils
+discord_arch_electron
 dmenu
 dmidecode
 dmraid
@@ -78,6 +80,7 @@ gnome-themes-extra
 gnome-tweaks
 gnome-usage
 gnome-weather
+graphviz
 grub
 gst-libav
 gst-plugin-pipewire
@@ -95,6 +98,7 @@ hsetroot
 hwdetect
 hwinfo
 inetutils
+intel-ucode
 inxi
 iptables-nft
 iwd
@@ -125,6 +129,7 @@ mtools
 nano
 nano-syntax-highlighting
 nautilus
+neofetch
 neovim
 netctl
 networkmanager
@@ -182,6 +187,10 @@ synology-drive
 sysfsutils
 systemd-sysvcompat
 texinfo
+texlab
+texlive-latexextra
+texlive-latexrecommended
+texlive-plaingeneric
 tldr
 totem
 tt
@@ -251,4 +260,5 @@ xterm
 yay
 zathura
 zathura-pdf-mupdf
+zotero-bin
 zsh
