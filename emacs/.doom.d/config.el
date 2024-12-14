@@ -140,3 +140,11 @@
           org-roam-ui-follow t
           org-roam-ui-update-on-save t
           org-roam-ui-open-on-start t))
+
+(after! org (require 'org-protocol))
+
+(setq org-capture-templates
+      `(("i" "inbox" entry (file, "~/Documents/org/gtd/inbox.org")
+         "* TODO %?")
+        ("c" "org-protocol-capture" entry (file, "~/Documents/org/gtd/inbox.org")
+         "* TODO [[%:link][%:description]]\n\n %i" :immediate-finish t)))
