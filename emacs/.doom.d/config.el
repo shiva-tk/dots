@@ -1,122 +1,36 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-;; Place your private configuration here! Remember, you do not need to run 'doom
-;; sync' after modifying this file!
+;; Theme and Appearance
 
-
-;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets. It is optional.
-;; (setq user-full-name "John Doe"
-;;       user-mail-address "john@doe.com")
-
-;; Doom exposes five (optional) variables for controlling fonts in Doom:
-;;
-;; - `doom-font' -- the primary font to use
-;; - `doom-variable-pitch-font' -- a non-monospace font (where applicable)
-;; - `doom-big-font' -- used for `doom-big-font-mode'; use this for
-;;   presentations or streaming.
-;; - `doom-symbol-font' -- for symbols
-;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
-;;
-;; See 'C-h v doom-font' for documentation and more examples of what they
-;; accept. For example:
-;;
 (setq doom-font (font-spec :family "Iosevka Nerd Font" :size 18 :weight 'semi-light))
-;;
-;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
-;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
-;; refresh your font settings. If Emacs still can't find your font, it likely
-;; wasn't installed correctly. Font issues are rarely Doom issues!
-
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-homage-white)
+(setq display-line-numbers-type 'relative)
 
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
 
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
-
-(after! org
-  (setq org-todo-keywords
-        '((sequence "TODO(t/!)" "IDEA(i/!)" "PROJ(p)" "NEXT(n/!)" "WAIT(w@/!)" "|" "DONE(d/!)" "VOID(v@/!)"))))
-
-(after! org
-  (setq org-tag-alist
-        '(("@home" . ?h)
-          ("@uni" . ?u))))
-
-;; Whenever you reconfigure a package, make sure to wrap your config in an
-;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
-;;
-;;   (after! PACKAGE
-;;     (setq x y))
-;;
-;; The exceptions to this rule:
-;;
-;;   - Setting file/directory variables (like `org-directory')
-;;   - Setting variables which explicitly tell you to set them before their
-;;     package is loaded (see 'C-h v VARIABLE' to look up their documentation).
-;;   - Setting doom variables (which start with 'doom-' or '+').
-;;
-;; Here are some additional functions/macros that will help you configure Doom.
-;;
-;; - `load!' for loading external *.el files relative to this one
-;; - `use-package!' for configuring packages
-;; - `after!' for running code after a package has loaded
-;; - `add-load-path!' for adding directories to the `load-path', relative to
-;;   this file. Emacs searches the `load-path' when you load packages with
-;;   `require' or `use-package'.
-;; - `map!' for binding new keys
-;;
-;; To get information about any of these functions/macros, move the cursor over
-;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
-;; This will open documentation for it, including demos of how they are used.
-;; Alternatively, use `C-h o' to look up a symbol (functions, variables, faces,
-;; etc).
-;;
-;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
-;; they are implemented.
+;; projectile
 
 (setq
- projectile-project-search-path '("~/Documents/dev/" "~/Documents/icl/" "~/Documents/org/")
- vterm-shell "/sbin/zsh"
- +latex-viewers '(zathura)
- TeX-fold-unfold-around-mark 't
- lsp-tex-server 'texlab
- TeX-electric-sub-and-superscript 't
- )
+ projectile-project-search-path '("~/Documents/dev/" "~/Documents/icl/" "~/Documents/org/"))
 
+
+;; vterm
+
+(after! vterm (setq vterm-shell "/sbin/zsh"))
+
+
+;; org
+
+;; Configure directories
 (setq org-directory "~/Documents/org/")
-(setq org-roam-directory "~/Documents/org/roam")
 (setq org-agenda-files (directory-files-recursively "~/Documents/org/" "\\.org$"))
+(defun custom/gtd-file (filename)
+  (let ((gtd-directory (concat (file-name-as-directory org-directory) "gtd/")))
+    (concat gtd-directory filename)))
+
+;; Hide emphasis markers in *bold* or /italic/
 (setq org-hide-emphasis-markers 't)
-(after! oc (setq org-cite-global-bibliography '("~/Documents/org/refs/bibliography.bib")))
 
-(use-package! citar
-  :after oc
-  :custom
-  (org-cite-insert-processor 'citar)
-  (org-cite-follow-processor 'citar)
-  (org-cite-activate-processor 'citar)
-  (citar-org-roam-note-title-template "${author} - ${title}\npdf: ${file}")
-  (citar-bibliography '("~/Documents/org/refs/bibliography.bib")))
-
-(after! citar
-  (add-to-list 'citar-file-open-functions '("pdf" . citar-file-open-external)))
-
-(after! org
-  (map! :map org-mode-map
-        :n "M-j" #'org-metadown
-        :n "M-k" #'org-metaup
-   )
-  )
-
-;; Resize org mode headings
+;; Resize headings
 (custom-set-faces
   '(org-document-title ((t (:height 2.0 :weight bold))))
   '(org-level-1 ((t (:inherit outline-1 :height 1.7))))
@@ -127,61 +41,67 @@
   '(org-level-6 ((t (:inherit outline-5 :height 1.2))))
   '(org-level-7 ((t (:inherit outline-5 :height 1.1)))))
 
+;; Evil keybinds to move headings up or down
+(after! org
+  (map! :map org-mode-map
+        :n "M-j" #'org-metadown
+        :n "M-k" #'org-metaup
+   )
+  )
+
+;; Set up org-bullets to make heading slook prettier
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 (setq org-bullets-bullet-list
         '("⁖"))
+
+;; When a section is collapsed, this is display instead of '...'
 (setq org-ellipsis " ▾ ")
 
-;; org-roam-ui
-(use-package! websocket
-    :after org-roam)
-
-(use-package! org-roam-ui
-    :after org-roam ;; or :after org
-;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
-;;         a hookable mode anymore, you're advised to pick something yourself
-;;         if you don't care about startup time, use
-;;  :hook (after-init . org-roam-ui-mode)
-    :config
-    (setq org-roam-ui-sync-theme t
-          org-roam-ui-follow t
-          org-roam-ui-update-on-save t
-          org-roam-ui-open-on-start t))
-
-(after! org (require 'org-protocol))
-
-(setq org-capture-templates
-      `(("i" "inbox" entry (file, "~/Documents/org/gtd/inbox.org")
-         "* TODO %?")
-        ("l" "link" entry (file, "~/Documents/org/gtd/inbox.org")
-         "* TODO %? | %a")
-        ("c" "org-protocol-capture" entry (file, "~/Documents/org/gtd/inbox.org")
-         "* TODO [[%:link][%:description]]\n\n %i" :immediate-finish t)
-        ("e" "email" entry (file, "~/Documents/org/gtd/inbox.org")
-         "* TODO %? | %:fromname | %a")))
-
+;; Set up logging.
 (after! org
   (setq org-log-into-drawer "LOGBOOK"))
 
-(defun jethro/org-agenda-process-inbox-item ()
-  "Process a single item in the org-agenda."
-  (interactive)
-  (org-with-wide-buffer
-   (org-agenda-set-tags)
-   (org-agenda-priority)
-   (when (y-or-n-p "Schedule this item? ")
-     (call-interactively 'org-agenda-schedule))
-   (when (y-or-n-p "Set a deadline for this item? ")
-     (call-interactively 'org-agenda-deadline))
-   (org-agenda-refile nil nil t)))
+;; Set the TODO keywords
+;; /! Means timestamp when leaving this state.
+;; @ means prompt for a note when entering this state.
+(after! org
+  (setq org-todo-keywords
+        '((sequence "TODO(t/!)" "IDEA(i/!)" "NEXT(n/!)" "WAIT(w@/!)" "|" "DONE(d/!)" "VOID(v@/!)"))
+        org-log-done 'time          ;; Log the time at which items are closed
+        org-log-reschedule 'note))  ;; Prompt for a note when rescheduling an item
 
-(defun jethro/org-process-inbox ()
+(after! org
+  (setq org-archive-location (custom/gtd-file "archive.org") ;; Set up archive location for tasks
+        org-agenda-log-mode-items '(clock closed)            ;; Shows log information in agenda view
+        org-agenda-start-with-log-mode t))                   ;; Starts the agenda with log mode enabled.
+
+;; Set available tags for TODO items
+(after! org
+  (setq org-tag-alist
+        '(("@home" . ?h)
+          ("@uni" . ?u))))
+
+;; Set up org capture templates
+(setq org-capture-templates
+      `(("i" "inbox" entry (file ,(custom/gtd-file "inbox.org"))
+         "* TODO %?")
+        ("l" "link" entry (file ,(custom/gtd-file "inbox.org"))
+         "* TODO %? | %a")
+        ("c" "org-protocol-capture" entry (file ,(custom/gtd-file "inbox.org"))
+         "* TODO [[%:link][%:description]]\n\n %i" :immediate-finish t)
+        ("e" "email" entry (file ,(custom/gtd-file "inbox.org"))
+         "* TODO %? | %:fromname | %a")))
+
+;; Function to process all items in the inbox, within the agenda view
+;; https://blog.jethro.dev/posts/processing_inbox/
+(defun custom/org-process-inbox ()
   "Called in org-agenda-mode, processes all inbox items."
   (interactive)
-  (custom/org-agenda-bulk-mark-regexp-category "inbox")
-  (jethro/bulk-process-entries))
+  (custom/org-agenda-bulk-mark-regexp-category "inbox")  ;; Bulk select all entries in the inbox
+  (custom/bulk-process-entries))                         ;; Bulk process selected entries
 
+;; Function to buk select agenda entries based on their category
 (defun custom/org-agenda-bulk-mark-regexp-category (regexp)
     "Mark entries whose category matches REGEXP for future agenda bulk action."
     (interactive "sMark entries with category matching regexp: ")
@@ -200,7 +120,9 @@
       (unless entries-marked
         (message "No entry matching this regexp."))))
 
-(defun jethro/bulk-process-entries ()
+;; Function to process selected inbox entries in the org agenda.
+;; https://blog.jethro.dev/posts/processing_inbox/
+(defun custom/bulk-process-entries ()
   (interactive)
   (if (not (null org-agenda-bulk-marked-entries))
       (let ((entries (reverse org-agenda-bulk-marked-entries))
@@ -212,7 +134,7 @@
                 (progn (message "Skipping removed entry at %s" e)
                        (cl-incf skipped))
               (goto-char pos)
-              (let (org-loop-over-headlines-in-active-region) (funcall 'jethro/org-agenda-process-inbox-item))
+              (let (org-loop-over-headlines-in-active-region) (funcall 'custom/process-single-inbox-entry))
               ;; `post-command-hook' is not run yet.  We make sure any
               ;; pending log note is processed.
               (when (or (memq 'org-add-log-note (default-value 'post-command-hook))
@@ -229,31 +151,47 @@
                            skipped))
                  (if (not org-agenda-persistent-marks) "" " (kept marked)")))))
 
-(defun jethro/set-todo-state-next ()
-  "Visit each parent task and change NEXT states to TODO"
-  (org-todo "NEXT"))
+;; Process a single inbox entry at the cursor
+;; https://blog.jethro.dev/posts/processing_inbox/
+(defun custom/process-single-inbox-entry ()
+  "Process a single item in the org-agenda."
+  (interactive)
+  (org-with-wide-buffer
+   (org-agenda-set-tags)
+   (org-agenda-priority)
+   (when (y-or-n-p "Schedule this item? ")
+     (call-interactively 'org-agenda-schedule))
+   (when (y-or-n-p "Set a deadline for this item? ")
+     (call-interactively 'org-agenda-deadline))
+   (org-agenda-refile nil nil t)))
 
-(defun jethro/set-todo-state-done ()
-  "Visit each parent task and change NEXT states to TODO"
-  (org-todo "DONE"))
-
-(add-hook 'org-clock-in-hook 'jethro/set-todo-state-next 'append)
-(add-hook 'org-clock-out-hook 'jethro/set-todo-state-done 'append)
-
-(setq org-refile-use-outline-path 'file
-      org-outline-path-complete-in-steps nil)
-(setq org-refile-allow-creating-parent-nodes 'confirm)
-(setq org-refile-targets '(("life.org" :level . 0)
-                           ("reading.org" :level . 0)
-                           ("projects.org" :level . 1)
-                           ("work.org" :level . 1)))
-
+;; Set up a keybinding to process the inbox.
 (after! org
   (map! :map org-agenda-mode-map
         :leader
         :desc "Process an item in the inbox"
-        "m R" #'jethro/org-process-inbox))
+        "m R" #'custom/org-process-inbox))
 
+;; Automatically change states when clocking in or out
+(defun custom/set-todo-state-next ()
+  "Visit each parent task and change states to NEXT"
+  (org-todo "NEXT"))
+(defun custom/set-todo-state-done ()
+  "Visit each parent task and change states to DONE"
+  (org-todo "DONE"))
+(add-hook 'org-clock-in-hook 'custom/set-todo-state-next 'append)
+(add-hook 'org-clock-out-hook 'custom/set-todo-state-done 'append)
+
+;; Configure refiling menue when refiling tasks
+(setq org-refile-use-outline-path 'file
+      org-outline-path-complete-in-steps nil)
+(setq org-refile-allow-creating-parent-nodes 'confirm)  ;; Allow creation of headings under which to group tasks, when refiling them
+(setq org-refile-targets '(("life.org" :level . 0)      ;; Display life.org, do not refile to headings within this file
+                           ("reading.org" :level . 0)   ;; Display reading.org, do not refile to headings within this file
+                           ("projects.org" :level . 1)  ;; Display projects.org, show headings
+                           ("work.org" :level . 1)))    ;; Display work.org, show headings
+
+;; Configure the custom org agenda view
 (after! org (setq org-agenda-custom-commands
       '((" " "Agenda"
         ((agenda ""
@@ -261,45 +199,104 @@
                   (org-deadline-warning-days 365)))
          (todo "TODO"
                ((org-agenda-overriding-header "To Refile")
-                (org-agenda-files '("~/Documents/org/gtd/inbox.org"))))
+                (org-agenda-files (list (custom/gtd-file "inbox.org")))))
          (todo "NEXT"
                ((org-agenda-overriding-header "In Progress")
-                (org-agenda-files '("~/Documents/org/gtd/life.org"
-                                    "~/Documents/org/gtd/work.org"
-                                    "~/Documents/org/gtd/reading.org"
-                                    "~/Documents/org/gtd/projects.org"
-                                    "~/Documents/org/gtd/repeaters.org"))
+                (org-agenda-files (list
+                                   (custom/gtd-file "life.org")
+                                   (custom/gtd-file "work.org")
+                                   (custom/gtd-file "reading.org")
+                                   (custom/gtd-file "projects.org")
+                                   (custom/gtd-file "repeaters.org")))
                 ))
          (todo "TODO"
                ((org-agenda-overriding-header "Project Tasks")
-                (org-agenda-files '("~/Documents/org/gtd/projects.org"))
+                (org-agenda-files (list (custom/gtd-file "projects.org")))
                 ))
          (todo "TODO"
                ((org-agenda-overriding-header "Work Tasks")
-                (org-agenda-files '("~/Documents/org/gtd/work.org"))))
+                (org-agenda-files (list (custom/gtd-file "work.org")))))
          (todo "TODO"
                ((org-agenda-overriding-header "Life Tasks")
-                (org-agenda-files '("~/Documents/org/gtd/life.org"))))
+                (org-agenda-files (list (custom/gtd-file "life.org")))))
          (todo "TODO"
                ((org-agenda-overriding-header "Reading List")
-                (org-agenda-files '("~/Documents/org/gtd/reading.org"))))
+                (org-agenda-files (list (custom/gtd-file "reading.org")))))
          (todo "WAIT"
                ((org-agenda-overriding-header "Blocked Tasks")
-                (org-agenda-files '("~/Documents/org/gtd/life.org"
-                                    "~/Documents/org/gtd/work.org"
-                                    "~/Documents/org/gtd/reading.org"
-                                    "~/Documents/org/gtd/projects.org"
-                                    "~/Documents/org/gtd/repeaters.org"))
+                (org-agenda-files (list
+                                   (custom/gtd-file "life.org")
+                                   (custom/gtd-file "work.org")
+                                   (custom/gtd-file "reading.org")
+                                   (custom/gtd-file "projects.org")
+                                   (custom/gtd-file "repeaters.org")))
                 ))
          nil))
         )))
 
-(after! org
-  (setq org-archive-location "~/Documents/org/gtd/archive.org::"
-        org-log-done 'time
-        org-log-reschedule 'note
-        org-agenda-log-mode-items '(clock closed)
-        org-agenda-start-with-log-mode t))
+;; Set up a shortcut to open this custom agenda view
+(defun custom/switch-to-agenda ()
+  (interactive)
+  (org-agenda nil " "))
+
+(map! :leader
+      "o A" #'custom/switch-to-agenda)
+
+
+;; org-protocol
+;; Allows capturing TODOs from the browser, using a bookmarklet.
+
+(after! org (require 'org-protocol))
+
+
+;; org-roam
+
+;; Configure directory
+(setq org-roam-directory "~/Documents/org/roam")
+
+
+;; org-roam-ui
+
+(use-package! websocket
+    :after org-roam)
+
+(use-package! org-roam-ui
+    :after org-roam ;; or :after org
+;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
+;;         a hookable mode anymore, you're advised to pick something yourself
+;;         if you don't care about startup time, use
+;;  :hook (after-init . org-roam-ui-mode)
+    :config
+    (setq org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start t))
+
+
+;; org-cite
+;; https://www.riccardopinosio.com/blog/posts/zotero_notes_article
+
+;; Set the bibliography file location.
+(after! oc (setq org-cite-global-bibliography '("~/Documents/org/refs/bibliography.bib")))
+
+
+;; citar
+;; https://www.riccardopinosio.com/blog/posts/zotero_notes_article
+
+(use-package! citar
+  :after oc
+  :custom
+  (org-cite-insert-processor 'citar)
+  (org-cite-follow-processor 'citar)
+  (org-cite-activate-processor 'citar)
+  (citar-org-roam-note-title-template "${author} - ${title}\npdf: ${file}")
+  (citar-bibliography '("~/Documents/org/refs/bibliography.bib")))
+
+(after! citar
+  (add-to-list 'citar-file-open-functions '("pdf" . citar-file-open-external)))
+
+
+;; mu4e
 
 (after! mu4e
   (setq
@@ -340,8 +337,10 @@
           :vars '((user-mail-address      . "shivatk01@gmail.com")
                   (user-full-name         . "Shiva Tamil Kumaran"))))
 
+   ;; Set up addresses
    +mu4e-personal-addresses '("anand.tk.03@gmail.com"
                               "shivatk01@gmail.com")
+   ;; Set up shortcuts
    mu4e-maildir-shortcuts
       '(("/Inbox"                   . ?i)
         ("/[Google Mail]/Sent Mail" . ?e)
@@ -350,6 +349,7 @@
         ("/[Google Mail]/Drafts"    . ?d)
         ("/[Google Mail]/All Mail"  . ?a))))
 
+;; Configuration to facilitate sending emails
 (setq
  message-send-mail-function 'smtpmail-send-it
  smtpmail-smtp-server "smtp.gmail.com"
@@ -358,11 +358,23 @@
  smtpmail-auth-supported '(plain login)
  smtpmail-smtp-user "anand.tk.03@gmail.com")
 
+;; smtp auth information found here
 (setq auth-sources
     '((:source "~/Documents/.authinfo.gpg")))
 
+;; Set up a shortcut to allow capturing emails into my TODO inbox
 (after! mu4e
   (map! :map mu4e-mode-map
         :leader
         :desc "Capture email to Org"
         "m c" #'mu4e-org-store-and-capture))
+
+
+;; tex
+
+(setq
+ +latex-viewers '(zathura)            ;; Set the viewer in which to open previews
+ TeX-fold-unfold-around-mark 't       ;; ???
+ lsp-tex-server 'texlab               ;; lsp
+ TeX-electric-sub-and-superscript 't  ;; Show subscript and superscript below and above the line.
+ )
