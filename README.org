@@ -22,6 +22,7 @@ cd ~/dots
 #+END_SRC
 
 This install script isn't particularly stable, and may require some tinkering.
+It's primarily aimed at installing on my own machines.
 
 The script:
 1. Installs dependencies via AUR / pacman.

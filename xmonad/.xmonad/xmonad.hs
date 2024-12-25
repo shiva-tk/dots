@@ -2,6 +2,7 @@ import XMonad
 import XMonad.Config.Desktop
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.FadeInactive
 import XMonad.Layout.Spacing
 import XMonad.Layout.CenterMainFluid
@@ -18,7 +19,7 @@ import Colours.HomageWhite
 
 main = do
   xmproc <- spawnPipe "~/.cabal/bin/xmobar -x 0 ~/.config/xmobar/xmobar-homage-white.config"
-  xmonad $ docks $ desktopConfig
+  xmonad $ ewmh $ docks $ desktopConfig
     { terminal    = "alacritty"
     , modMask     = mod4Mask
     , borderWidth = 0
@@ -67,10 +68,13 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_n     ), spawn $ "networkmanager_dmenu -nb '" ++ colorBack ++ "' -nf '" ++ colorFore ++ "' -sb '" ++ colorBack ++ "' -sf  '" ++ color1 ++ "' -fn 'Iosevka:pixelsize=18' -p 'run: '")
 
     -- launch networkmanager-dmenu
-    , ((modm .|. shiftMask, xK_s     ), spawn "~/bin/select-sink")
+    , ((modm .|. shiftMask, xK_s     ), spawn "~/bin/select-sink-homage-white")
 
-    -- launch gmrun
-    , ((modm .|. shiftMask, xK_p     ), spawn "~/bin/power-menu")
+    -- launch window switcher menu
+    , ((modm,               xK_o     ), spawn "~/bin/window-switcher-homage-white")
+
+    -- launch power menu
+    , ((modm .|. shiftMask, xK_p     ), spawn "~/bin/power-menu-homage-white")
 
     -- close focused window
     , ((modm .|. shiftMask, xK_c     ), kill)
@@ -171,6 +175,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 myLogHook xmproc    = dynamicLogWithPP xmobarPP 
   { ppOutput        = hPutStrLn xmproc 
   , ppCurrent       = bold . xmobarColor color1 colorBack . xmobarBorder "Bottom" color1 3
+  , ppVisible       = bold . xmobarColor color9 colorBack . xmobarBorder "Bottom" color9 3
   , ppSep           = xmobarColor color8 colorBack $ pad "|"
   , ppTitle         = italic . xmobarColor colorFore colorBack
   , ppTitleSanitize = shorten 20

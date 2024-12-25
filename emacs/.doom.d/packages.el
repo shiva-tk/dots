@@ -54,3 +54,4 @@
 (package! citar)
 (unpin! org-roam)
 (package! org-roam-ui)
+(package! auth-source-pass)
