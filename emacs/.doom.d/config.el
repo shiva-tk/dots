@@ -33,8 +33,8 @@
 ;; Resize headings
 (custom-set-faces
   '(org-document-title ((t (:height 2.0 :weight bold))))
-  '(org-level-1 ((t (:inherit outline-1 :height 1.7))))
-  '(org-level-2 ((t (:inherit outline-2 :height 1.6))))
+  '(org-level-1 ((t (:inherit outline-1 :height 1.7 :spacing 2))))
+  '(org-level-2 ((t (:inherit outline-2 :height 1.6 :spacing 2))))
   '(org-level-3 ((t (:inherit outline-3 :height 1.5))))
   '(org-level-4 ((t (:inherit outline-4 :height 1.4))))
   '(org-level-5 ((t (:inherit outline-5 :height 1.3))))
@@ -72,7 +72,7 @@
         org-log-reschedule 'note))  ;; Prompt for a note when rescheduling an item
 
 (after! org
-  (setq org-archive-location (custom/gtd-file "archive.org") ;; Set up archive location for tasks
+  (setq ;; org-archive-location (custom/gtd-file "archive.org") ;; Set up archive location for tasks
         org-agenda-log-mode-items '(clock closed)            ;; Shows log information in agenda view
         org-agenda-start-with-log-mode t))                   ;; Starts the agenda with log mode enabled.
 
@@ -176,11 +176,11 @@
 (defun custom/set-todo-state-next ()
   "Visit each parent task and change states to NEXT"
   (org-todo "NEXT"))
-(defun custom/set-todo-state-done ()
-  "Visit each parent task and change states to DONE"
-  (org-todo "DONE"))
+;; (defun custom/set-todo-state-done ()
+;;   "Visit each parent task and change states to DONE"
+;;   (org-todo "DONE"))
 (add-hook 'org-clock-in-hook 'custom/set-todo-state-next 'append)
-(add-hook 'org-clock-out-hook 'custom/set-todo-state-done 'append)
+;; (add-hook 'org-clock-out-hook 'custom/set-todo-state-done 'append)
 
 ;; Configure refiling menue when refiling tasks
 (setq org-refile-use-outline-path 'file
@@ -196,6 +196,8 @@
       '((" " "Agenda"
         ((agenda ""
                  ((org-agenda-span 'week)
+                  (org-agenda-start-on-weekday nil)
+                  (org-agenda-start-day "+0d")
                   (org-deadline-warning-days 365)))
          (todo "TODO"
                ((org-agenda-overriding-header "To Refile")
@@ -301,7 +303,7 @@
 (after! mu4e
   (setq
    ;; General settings
-   mu4e-root-maildir "~/email/gmail"
+   mu4e-root-maildir "~/email"
    mu4e-update-interval 300 ;; Update every 5 minutes
    mu4e-get-mail-command "mbsync -a" ;; Command to sync emails
    mu4e-change-filenames-when-moving t
@@ -312,10 +314,10 @@
    mu4e-message-signature "- Shiva Tamil Kumaran"
 
    ;; Gmail-specific folders
-   mu4e-sent-folder "/[Google Mail]/Sent Mail"
-   mu4e-drafts-folder "/[Google Mail]/Drafts"
-   mu4e-trash-folder "/[Google Mail]/Trash"
-   mu4e-refile-folder "/[Google Mail]/All Mail"
+   mu4e-sent-folder "/gmail/[Google Mail]/Sent Mail"
+   mu4e-drafts-folder "/gmail/[Google Mail]/Drafts"
+   mu4e-trash-folder "/gmail/[Google Mail]/Trash"
+   mu4e-refile-folder "/gmail/[Google Mail]/All Mail"
 
    ;; Contexts for new and old email addresses
    mu4e-contexts
@@ -323,31 +325,45 @@
           :name "Old Gmail"
           :match-func (lambda (msg)
                         (when msg
-                          (string-match-p "anand.tk.03@gmail.com"
-                                          (or (plist-get (mu4e-message-field msg :to) :email) ""))))
+                          (and (string-prefix-p "/gmail" (mu4e-message-field msg :maildir))
+                               (or (string-match-p "anand.tk.03@gmail.com"
+                                                   (or (plist-get (mu4e-message-field msg :to) :email) ""))
+                                   (string-match-p "anand.tk.03@gmail.com"
+                                                   (or (plist-get (mu4e-message-field msg :from) :email) ""))))))
           :vars '((user-mail-address      . "anand.tk.03@gmail.com")
-                  (user-full-name         . "Shiva Tamil Kumaran")))
+                  (user-full-name         . "Shiva Tamil Kumaran")
+                  (mu4e-drafts-folder  . "/gmail/[Google Mail]/Drafts")
+                  (mu4e-sent-folder  . "/gmail/[Google Mail]/Sent Mail")
+                  (mu4e-refile-folder  . "/gmail/[Google Mail]/All Mail")
+                  (mu4e-trash-folder  . "/gmail/[Google Mail]/Trash")))
 
         ,(make-mu4e-context
           :name "New Gmail"
           :match-func (lambda (msg)
                         (when msg
-                          (string-match-p "shivatk01@gmail.com"
-                                          (or (plist-get (mu4e-message-field msg :to) :email) ""))))
+                          (and (string-prefix-p "/gmail" (mu4e-message-field msg :maildir))
+                               (or (string-match-p "shivatk01@gmail.com"
+                                                   (or (plist-get (mu4e-message-field msg :to) :email) ""))
+                                   (string-match-p "shivatk01@gmail.com"
+                                                   (or (plist-get (mu4e-message-field msg :from) :email) ""))))))
           :vars '((user-mail-address      . "shivatk01@gmail.com")
-                  (user-full-name         . "Shiva Tamil Kumaran"))))
+                  (user-full-name         . "Shiva Tamil Kumaran")
+                  (mu4e-drafts-folder  . "/gmail/[Google Mail]/Drafts")
+                  (mu4e-sent-folder  . "/gmail/[Google Mail]/Sent Mail")
+                  (mu4e-refile-folder  . "/gmail/[Google Mail]/All Mail")
+                  (mu4e-trash-folder  . "/gmail/[Google Mail]/Trash"))))
 
    ;; Set up addresses
    +mu4e-personal-addresses '("anand.tk.03@gmail.com"
                               "shivatk01@gmail.com")
    ;; Set up shortcuts
    mu4e-maildir-shortcuts
-      '(("/Inbox"                   . ?i)
-        ("/[Google Mail]/Sent Mail" . ?e)
-        ("/[Google Mail]/Starred"   . ?s)
-        ("/[Google Mail]/Trash"     . ?t)
-        ("/[Google Mail]/Drafts"    . ?d)
-        ("/[Google Mail]/All Mail"  . ?a))))
+      '(("/gmail/Inbox"                   . ?i)
+        ("/gmail/[Google Mail]/Sent Mail" . ?e)
+        ("/gmail/[Google Mail]/Starred"   . ?s)
+        ("/gmail/[Google Mail]/Trash"     . ?t)
+        ("/gmail/[Google Mail]/Drafts"    . ?d)
+        ("/gmail/[Google Mail]/All Mail"  . ?a))))
 
 ;; Configuration to facilitate sending emails
 (setq
