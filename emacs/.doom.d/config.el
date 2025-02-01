@@ -51,7 +51,7 @@
 
 ;; Set up org-bullets to make heading slook prettier
 (require 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1) (olivetti-mode)))
 (setq org-bullets-bullet-list
         '("⁖"))
 
@@ -195,15 +195,15 @@
 (after! org (setq org-agenda-custom-commands
       '((" " "Agenda"
         ((agenda ""
-                 ((org-agenda-span 'week)
+                 ((org-agenda-span 1)
                   (org-agenda-start-on-weekday nil)
                   (org-agenda-start-day "+0d")
                   (org-deadline-warning-days 365)))
          (todo "TODO"
-               ((org-agenda-overriding-header "To Refile")
+               ((org-agenda-overriding-header " To Refile")
                 (org-agenda-files (list (custom/gtd-file "inbox.org")))))
          (todo "NEXT"
-               ((org-agenda-overriding-header "In Progress")
+               ((org-agenda-overriding-header " In Progress")
                 (org-agenda-files (list
                                    (custom/gtd-file "life.org")
                                    (custom/gtd-file "work.org")
@@ -212,20 +212,20 @@
                                    (custom/gtd-file "repeaters.org")))
                 ))
          (todo "TODO"
-               ((org-agenda-overriding-header "Project Tasks")
+               ((org-agenda-overriding-header " Project Tasks")
                 (org-agenda-files (list (custom/gtd-file "projects.org")))
                 ))
          (todo "TODO"
-               ((org-agenda-overriding-header "Work Tasks")
+               ((org-agenda-overriding-header "󰌢 Work Tasks")
                 (org-agenda-files (list (custom/gtd-file "work.org")))))
          (todo "TODO"
-               ((org-agenda-overriding-header "Life Tasks")
+               ((org-agenda-overriding-header " Life Tasks")
                 (org-agenda-files (list (custom/gtd-file "life.org")))))
          (todo "TODO"
-               ((org-agenda-overriding-header "Reading List")
+               ((org-agenda-overriding-header "󰂺 Reading List")
                 (org-agenda-files (list (custom/gtd-file "reading.org")))))
          (todo "WAIT"
-               ((org-agenda-overriding-header "Blocked Tasks")
+               ((org-agenda-overriding-header " Blocked Tasks")
                 (org-agenda-files (list
                                    (custom/gtd-file "life.org")
                                    (custom/gtd-file "work.org")
@@ -235,6 +235,9 @@
                 ))
          nil))
         )))
+
+(setq org-agenda-skip-deadline-if-done t
+      org-agenda-skip-scheduled-if-done t)
 
 ;; Set up a shortcut to open this custom agenda view
 (defun custom/switch-to-agenda ()
@@ -351,11 +354,24 @@
                   (mu4e-drafts-folder  . "/gmail/[Google Mail]/Drafts")
                   (mu4e-sent-folder  . "/gmail/[Google Mail]/Sent Mail")
                   (mu4e-refile-folder  . "/gmail/[Google Mail]/All Mail")
-                  (mu4e-trash-folder  . "/gmail/[Google Mail]/Trash"))))
+                  (mu4e-trash-folder  . "/gmail/[Google Mail]/Trash")))
+
+        ,(make-mu4e-context
+          :name "Imperial"
+          :match-func (lambda (msg)
+                        (when msg (string-prefix-p "/imperial" (mu4e-message-field msg :maildir))))
+          :vars '((user-mail-address      . "st621@ic.ac.uk")
+                  (user-full-name         . "Shiva Tamil Kumaran")
+                  (mu4e-drafts-folder  . "/imperial/Drafts")
+                  (mu4e-sent-folder    . "/imperial/Sent Items")
+                  (mu4e-refile-folder  . "/imperial/Archive")
+                  (mu4e-trash-folder   . "/imperial/Deleted Items"))))
 
    ;; Set up addresses
    +mu4e-personal-addresses '("anand.tk.03@gmail.com"
-                              "shivatk01@gmail.com")
+                              "shivatk01@gmail.com"
+                              "st621@ic.ac.uk"
+                              "st621@imperial.ac.uk")
    ;; Set up shortcuts
    mu4e-maildir-shortcuts
       '(("/gmail/Inbox"                   . ?i)

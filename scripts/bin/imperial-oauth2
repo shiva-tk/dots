@@ -1,0 +1,2 @@
+# https://simondobson.org/2024/02/03/getting-email/
+python3 ~/bin/mutt_oauth2.py -t ~/Documents/.imperial-oauth2-token.gpg

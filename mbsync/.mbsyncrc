@@ -21,3 +21,28 @@ Near :gmail-local:
 Patterns *
 Create Both
 SyncState *
+
+
+IMAPAccount imperial
+Host outlook.office365.com
+Port 993
+User st621@ic.ac.uk
+PassCmd "imperial-oauth2"
+AuthMechs XOAUTH2
+SSLType IMAPS
+
+IMAPStore imperial-remote
+Account imperial
+
+MaildirStore imperial-local
+Subfolders Verbatim
+Path ~/email/imperial/
+Inbox ~/email/imperial/inbox
+
+Channel imperial
+Far :imperial-remote:
+Near :imperial-local:
+Patterns * !"Conversation History" !Calendar !Clutter
+Create Both
+Expunge Both
+SyncState *
