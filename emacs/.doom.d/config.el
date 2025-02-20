@@ -51,7 +51,7 @@
 
 ;; Set up org-bullets to make heading slook prettier
 (require 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1) (olivetti-mode)))
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 (setq org-bullets-bullet-list
         '("⁖"))
 
@@ -179,7 +179,7 @@
 ;; (defun custom/set-todo-state-done ()
 ;;   "Visit each parent task and change states to DONE"
 ;;   (org-todo "DONE"))
-(add-hook 'org-clock-in-hook 'custom/set-todo-state-next 'append)
+;; (add-hook 'org-clock-in-hook 'custom/set-todo-state-next 'append)
 ;; (add-hook 'org-clock-out-hook 'custom/set-todo-state-done 'append)
 
 ;; Configure refiling menue when refiling tasks
