@@ -1,8 +1,8 @@
 module Colours.HomageWhite where
 
 myNormalBorderColor, myFocusedBorderColor, myWallpaperColor :: String
-myNormalBorderColor  = colorBack
-myFocusedBorderColor = colorFore
+myNormalBorderColor  = color15
+myFocusedBorderColor = color7
 myWallpaperColor = "#d9d9d9"
 
 colorBack, colorFore :: String

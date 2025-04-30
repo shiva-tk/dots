@@ -9,7 +9,7 @@ echo "======================="
 echo "    Stowing Configs    "
 echo "======================="
 for dir in */; do
-  [ -d "$dir" ] && stow "$dir"
+  [ -d "$dir" ] && [ "$dir" != "lightdm/" ] && stow "$dir"
 done
 
 # Install haskell and xmonad through ghcup - ghcup preferred to pacman to manage haskell
@@ -35,24 +35,11 @@ cabal install --lib xmobar
 
 # Set ly as dm, and remove gnome dm
 echo "======================="
-echo "    Setting Up Ly DM   "
+echo "  Setting Up lightdm   "
 echo "======================="
 sudo systemctl disable gdm.service
-sudo systemctl enable ly.service
-
-# Install jonaburg/picom
-echo "======================="
-echo "   Installing Picom    "
-echo "======================="
-yay -S ninja meson
-git clone https://github.com/pijulius/picom.git tmp
-cd tmp
-meson --buildtype=release . build
-ninja -C build
-sudo ninja -C build install
-cd ..
-rm -rf tmp
-sudo pacman -R ninja meson
+sudo systemctl enable lightdm.service
+sudo cp ~/dots/lightdm/* /etc/lightdm/
 
 # Change to zsh
 echo "======================="

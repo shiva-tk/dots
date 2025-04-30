@@ -1,8 +1,9 @@
 #!/bin/sh
     
-case "$(echo -e "Shutdown\nRestart\nLogout\nSuspend" | dmenu -p "Power" -nb "#fafafa" -nf "#383a42" -sb "#fafafa" -sf "#e45649" -fn "Iosevka:pixelsize=18")" in
+case "$(echo -e "Shutdown\nRestart\nLogout\nSuspend\nLock" | dmenu -p "Power" -nb "#fafafa" -nf "#383a42" -sb "#fafafa" -sf "#e45649" -fn "Iosevka:pixelsize=18")" in
         Shutdown) exec systemctl poweroff;;
         Restart) exec systemctl reboot;;
         Logout) pkill xmonad;;
         Suspend) exec systemctl suspend;;
+        Lock) exec dm-tool lock;;
 esac

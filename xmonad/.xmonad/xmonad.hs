@@ -6,6 +6,7 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.FadeInactive
 import XMonad.Layout.Spacing
 import XMonad.Layout.CenterMainFluid
+import XMonad.Layout.NoBorders
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Run
 import Graphics.X11.ExtraTypes.XF86
@@ -23,7 +24,7 @@ main = do
     { terminal    = "alacritty"
     , modMask     = mod4Mask
     , borderWidth = 0
-    , layoutHook  = spacing 10 myLayout
+    , layoutHook  = myLayout
     , normalBorderColor = myNormalBorderColor
     , focusedBorderColor = myFocusedBorderColor
     , keys = myKeys
@@ -35,7 +36,7 @@ main = do
 ------------------------------------------------------------------------
 -- Layouts
 
-myLayout = avoidStruts $ tiled ||| Mirror tiled ||| Full ||| centered
+myLayout = avoidStruts . (smartSpacingWithEdge 6) $ tiled ||| Mirror tiled ||| Full ||| centered
   where
     -- Default tiling algorithm partitions the screen into two panes
     tiled   = Tall nmaster delta ratio
@@ -75,6 +76,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- launch power menu
     , ((modm .|. shiftMask, xK_p     ), spawn "~/bin/power-menu-homage-white")
+
+    -- screenshot
+    , ((0,                  xK_Print ), spawn "scrot ~/Pictures/screenshot_%Y-%m-%d_%H-%M-%S.png")
+    , ((modm,               xK_Print ), spawn "scrot -s -f ~/Pictures/screenshot_%Y-%m-%d_%H-%M-%S.png")
 
     -- close focused window
     , ((modm .|. shiftMask, xK_c     ), kill)
@@ -136,10 +141,15 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Restart xmonad
     , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
 
-    -- Volume control
+    -- Media control
     , ((0                 , xF86XK_AudioLowerVolume), spawn "amixer set Master 5%- unmute")
     , ((0                 , xF86XK_AudioRaiseVolume), spawn "amixer set Master 5%+ unmute")
     , ((0                 , xF86XK_AudioMute), spawn "amixer set Master toggle")
+    , ((0                 , xF86XK_AudioPlay), spawn "playerctl play-pause")
+    , ((0                 , xF86XK_AudioNext), spawn "playerctl next")
+    , ((0                 , xF86XK_AudioPrev), spawn "playerctl previous")
+    , ((0                 , xF86XK_MonBrightnessUp), spawn "lux -a 10%")
+    , ((0                 , xF86XK_MonBrightnessDown), spawn "lux -s 10%")
 
     -- Apps
     , ((modm              , xK_w     ), spawn "brave")
@@ -193,4 +203,4 @@ myLogHook xmproc    = dynamicLogWithPP xmobarPP
 myStartupHook = do
   spawnOnce $ "hsetroot -solid \"" ++ myWallpaperColor ++ "\""
   -- spawnOnce "feh --bg-fill ~/.wallpapers/sand-dune.jpg"
-  spawnOnce "picom -b"
+  spawnOnce "picom"

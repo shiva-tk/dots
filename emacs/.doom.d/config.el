@@ -311,75 +311,87 @@
    mu4e-get-mail-command "mbsync -a" ;; Command to sync emails
    mu4e-change-filenames-when-moving t
 
-   ;; Account-specific settings
+   ;; Account-specific settings (default values, will be overridden by contexts)
    user-mail-address "anand.tk.03@gmail.com"
    user-full-name "Shiva Tamil Kumaran"
    mu4e-message-signature "- Shiva Tamil Kumaran"
 
-   ;; Gmail-specific folders
+   ;; Gmail-specific folders (default values)
    mu4e-sent-folder "/gmail/[Google Mail]/Sent Mail"
    mu4e-drafts-folder "/gmail/[Google Mail]/Drafts"
    mu4e-trash-folder "/gmail/[Google Mail]/Trash"
-   mu4e-refile-folder "/gmail/[Google Mail]/All Mail"
+   mu4e-refile-folder "/gmail/[Google Mail]/All Mail")
 
-   ;; Contexts for new and old email addresses
-   mu4e-contexts
-      `(,(make-mu4e-context
-          :name "Old Gmail"
-          :match-func (lambda (msg)
-                        (when msg
-                          (and (string-prefix-p "/gmail" (mu4e-message-field msg :maildir))
-                               (or (string-match-p "anand.tk.03@gmail.com"
-                                                   (or (plist-get (mu4e-message-field msg :to) :email) ""))
-                                   (string-match-p "anand.tk.03@gmail.com"
-                                                   (or (plist-get (mu4e-message-field msg :from) :email) ""))))))
-          :vars '((user-mail-address      . "anand.tk.03@gmail.com")
-                  (user-full-name         . "Shiva Tamil Kumaran")
-                  (mu4e-drafts-folder  . "/gmail/[Google Mail]/Drafts")
-                  (mu4e-sent-folder  . "/gmail/[Google Mail]/Sent Mail")
-                  (mu4e-refile-folder  . "/gmail/[Google Mail]/All Mail")
-                  (mu4e-trash-folder  . "/gmail/[Google Mail]/Trash")))
+  ;; Contexts for multiple accounts
+  (setq mu4e-contexts
+        `(,(make-mu4e-context
+            :name "Old Gmail"
+            :match-func (lambda (msg)
+                          (when msg
+                            (and (string-prefix-p "/gmail" (mu4e-message-field msg :maildir))
+                                 (or (string-match-p "anand.tk.03@gmail.com"
+                                                     (or (plist-get (mu4e-message-field msg :to) :email) ""))
+                                     (string-match-p "anand.tk.03@gmail.com"
+                                                     (or (plist-get (mu4e-message-field msg :from) :email) ""))))))
+            :vars '((user-mail-address      . "anand.tk.03@gmail.com")
+                    (user-full-name         . "Shiva Tamil Kumaran")
+                    (mu4e-drafts-folder     . "/gmail/[Google Mail]/Drafts")
+                    (mu4e-sent-folder       . "/gmail/[Google Mail]/Sent Mail")
+                    (mu4e-refile-folder     . "/gmail/[Google Mail]/All Mail")
+                    (mu4e-trash-folder      . "/gmail/[Google Mail]/Trash")
+                    (mu4e-maildir-shortcuts . (("/gmail/Inbox"                   . ?i)
+                                               ("/gmail/[Google Mail]/Sent Mail" . ?e)
+                                               ("/gmail/[Google Mail]/Starred"   . ?s)
+                                               ("/gmail/[Google Mail]/Trash"     . ?t)
+                                               ("/gmail/[Google Mail]/Drafts"    . ?d)
+                                               ("/gmail/[Google Mail]/All Mail"  . ?a)))))
 
-        ,(make-mu4e-context
-          :name "New Gmail"
-          :match-func (lambda (msg)
-                        (when msg
-                          (and (string-prefix-p "/gmail" (mu4e-message-field msg :maildir))
-                               (or (string-match-p "shivatk01@gmail.com"
-                                                   (or (plist-get (mu4e-message-field msg :to) :email) ""))
-                                   (string-match-p "shivatk01@gmail.com"
-                                                   (or (plist-get (mu4e-message-field msg :from) :email) ""))))))
-          :vars '((user-mail-address      . "shivatk01@gmail.com")
-                  (user-full-name         . "Shiva Tamil Kumaran")
-                  (mu4e-drafts-folder  . "/gmail/[Google Mail]/Drafts")
-                  (mu4e-sent-folder  . "/gmail/[Google Mail]/Sent Mail")
-                  (mu4e-refile-folder  . "/gmail/[Google Mail]/All Mail")
-                  (mu4e-trash-folder  . "/gmail/[Google Mail]/Trash")))
+          ,(make-mu4e-context
+            :name "New Gmail"
+            :match-func (lambda (msg)
+                          (when msg
+                            (and (string-prefix-p "/gmail" (mu4e-message-field msg :maildir))
+                                 (or (string-match-p "shivatk01@gmail.com"
+                                                     (or (plist-get (mu4e-message-field msg :to) :email) ""))
+                                     (string-match-p "shivatk01@gmail.com"
+                                                     (or (plist-get (mu4e-message-field msg :from) :email) ""))))))
+            :vars '((user-mail-address      . "shivatk01@gmail.com")
+                    (user-full-name         . "Shiva Tamil Kumaran")
+                    (mu4e-drafts-folder     . "/gmail/[Google Mail]/Drafts")
+                    (mu4e-sent-folder       . "/gmail/[Google Mail]/Sent Mail")
+                    (mu4e-refile-folder     . "/gmail/[Google Mail]/All Mail")
+                    (mu4e-trash-folder      . "/gmail/[Google Mail]/Trash")
+                    (mu4e-maildir-shortcuts . (("/gmail/Inbox"                   . ?i)
+                                               ("/gmail/[Google Mail]/Sent Mail" . ?e)
+                                               ("/gmail/[Google Mail]/Starred"   . ?s)
+                                               ("/gmail/[Google Mail]/Trash"     . ?t)
+                                               ("/gmail/[Google Mail]/Drafts"    . ?d)
+                                               ("/gmail/[Google Mail]/All Mail"  . ?a)))))
 
-        ,(make-mu4e-context
-          :name "Imperial"
-          :match-func (lambda (msg)
-                        (when msg (string-prefix-p "/imperial" (mu4e-message-field msg :maildir))))
-          :vars '((user-mail-address      . "st621@ic.ac.uk")
-                  (user-full-name         . "Shiva Tamil Kumaran")
-                  (mu4e-drafts-folder  . "/imperial/Drafts")
-                  (mu4e-sent-folder    . "/imperial/Sent Items")
-                  (mu4e-refile-folder  . "/imperial/Archive")
-                  (mu4e-trash-folder   . "/imperial/Deleted Items"))))
+          ,(make-mu4e-context
+            :name "Imperial"
+            :match-func (lambda (msg)
+                          (when msg
+                            (string-prefix-p "/imperial" (mu4e-message-field msg :maildir))))
+            :vars '((user-mail-address      . "st621@ic.ac.uk")
+                    (user-full-name         . "Shiva Tamil Kumaran")
+                    (mu4e-drafts-folder     . "/imperial/Drafts")
+                    (mu4e-sent-folder       . "/imperial/Sent Items")
+                    (mu4e-refile-folder     . "/imperial/Archive")
+                    (mu4e-trash-folder      . "/imperial/Deleted Items")
+                    (mu4e-maildir-shortcuts . (("/imperial/Inbox"         . ?i)
+                                               ("/imperial/Sent Items"    . ?e)
+                                               ("/imperial/Deleted Items" . ?t)
+                                               ("/imperial/Drafts"        . ?d)
+                                               ("/imperial/Archive"       . ?a)))))))
 
-   ;; Set up addresses
-   +mu4e-personal-addresses '("anand.tk.03@gmail.com"
-                              "shivatk01@gmail.com"
-                              "st621@ic.ac.uk"
-                              "st621@imperial.ac.uk")
-   ;; Set up shortcuts
-   mu4e-maildir-shortcuts
-      '(("/gmail/Inbox"                   . ?i)
-        ("/gmail/[Google Mail]/Sent Mail" . ?e)
-        ("/gmail/[Google Mail]/Starred"   . ?s)
-        ("/gmail/[Google Mail]/Trash"     . ?t)
-        ("/gmail/[Google Mail]/Drafts"    . ?d)
-        ("/gmail/[Google Mail]/All Mail"  . ?a))))
+  ;; Personal addresses
+  (setq +mu4e-personal-addresses '("anand.tk.03@gmail.com"
+                                   "shivatk01@gmail.com"
+                                   "st621@ic.ac.uk"
+                                   "st621@imperial.ac.uk"))
+  (setq mu4e-context-policy 'pick-first)
+  (setq mu4e-compose-context-policy 'ask-if-none))
 
 ;; Configuration to facilitate sending emails
 (setq
