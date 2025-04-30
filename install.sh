@@ -39,7 +39,8 @@ echo "  Setting Up lightdm   "
 echo "======================="
 sudo systemctl disable gdm.service
 sudo systemctl enable lightdm.service
-sudo cp ~/dots/lightdm/* /etc/lightdm/
+sudo cp ~/dots/lightdm/lightdm/* /etc/lightdm/
+sudo cp ~/dots/lightdm/xsessions/* /usr/share/xsessions/
 
 # Change to zsh
 echo "======================="

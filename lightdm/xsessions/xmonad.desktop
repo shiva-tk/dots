@@ -1,0 +1,3 @@
+[Desktop Entry]
+Name=Xsession
+Exec=/etc/lightdm/Xsession
