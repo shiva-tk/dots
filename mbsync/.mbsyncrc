@@ -1,9 +1,10 @@
 IMAPAccount gmail
 Host imap.gmail.com
 User anand.tk.03@gmail.com
-PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/Documents/.authinfo.gpg | grep imap.gmail.com | grep -oP '(?<=password \")[^\"]+'"
-SSLType IMAPS
+PassCmd "gpg --quiet --for-your-eyes-only --no-tty --decrypt ~/Documents/.authinfo.gpg | awk '/machine imap.gmail.com/{print \$6}' | tr -d '\n'"
+TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
+AuthMechs LOGIN
 
 IMAPStore gmail-remote
 Account gmail
@@ -29,7 +30,7 @@ Port 993
 User st621@ic.ac.uk
 PassCmd "imperial-oauth2"
 AuthMechs XOAUTH2
-SSLType IMAPS
+TLSType IMAPS
 
 IMAPStore imperial-remote
 Account imperial
